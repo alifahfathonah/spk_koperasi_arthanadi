@@ -32,9 +32,22 @@
               <li class="{{ Request::is('kriteria') ? 'active':null}}"><a href="{{ url('kriteria') }}"><i class="fa fa-file-text-o"></i> Kriteria</a></li>
             </ul>
           </li>
-          <li class="{{ Request::is('alternatif') ? 'active':null}}"><a href="#"><i class="fa fa-book" aria-hidden="true"></i> <span>Data Alternatif</span></a></li>
-          <li class="{{ Request::is('pengajuan') ? 'active':null}}"><a href="{{ url('pengajuan') }}"><i class="fa fa-book" aria-hidden="true"></i> <span>Data Pengajuan</span></a></li>
-           {{-- <li class="{{ Request::is('jurnal') ? 'active':null}}"><a href="{{ url('jurnal') }}"><i class="fa fa-book" aria-hidden="true"></i> <span>Jurnal</span></a></li> --}}
+           <li class="{{ Request::is('pengajuan') ? 'active':null}}"><a href="{{ url('pengajuan') }}"><i class="fa fa-book" aria-hidden="true"></i> <span>Data Pengajuan</span></a></li>
+          <li class="{{ Request::is('alternatif') ? 'active':null}}"><a href="{{ url('alternatif') }}"><i class="fa fa-book" aria-hidden="true"></i> <span>Data Alternatif</span></a></li>
+          <li class="treeview {{ Request::is('proses-spk') ? 'active':null}} {{ Request::is('') ? 'active':null}}">
+            <a href="#">
+              <i class="fa fa-clipboard" aria-hidden="true"></i>
+              <span>Proses Hitung SPK</span>
+              <span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+              </span>
+            </a>
+            <ul class="treeview-menu">
+              <li class="{{ Request::is('proses-spk') ? 'active':null}}"><a href="{{ url('proses-spk') }}"><i class="fa fa-file-text-o"></i> Data Kriteria</a></li>
+              <li class="{{ Request::is('') ? 'active':null}}"><a href="#"><i class="fa fa-file-text-o"></i> Data Alternatif</a></li>
+            </ul>
+          </li>
+          {{-- <li class="{{ Request::is('jurnal') ? 'active':null}}"><a href="{{ url('jurnal') }}"><i class="fa fa-book" aria-hidden="true"></i> <span>Jurnal</span></a></li> --}}
           <?php /* <li class="treeview {{ Request::is('laporan/pembayaran') ? 'active':null}} {{ Request::is('laporan/rekapitulasi') ? 'active':null}} 
             {{ Request::is('laporan/rkas') ? 'active':null}} {{ Request::is('laporan/tunggakan') ? 'active':null}} 
             {{ Request::is('laporan/pengeluaran') ? 'active':null}} {{ Request::is('laporan/lpj') ? 'active':null}} 

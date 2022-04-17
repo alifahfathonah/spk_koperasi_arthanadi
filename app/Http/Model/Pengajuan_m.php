@@ -31,7 +31,18 @@ class Pengajuan_m extends Model
     {
 		$query = DB::table("{$this->table} as a")
 				->join('tb_nasabah as b','a.id_nasabah','=','b.id')
-				->select('a.*','b.nama_nasabah','b.alamat_nasabah','b.telepon');
+				->join('tb_kriteria as c','a.jaminan','=','c.id')
+				->join('tb_kriteria as d','a.karakter','=','d.id')
+				->join('tb_kriteria as e','a.kondisi_hutang','=','e.id')
+				->select(
+					'a.*',
+					'b.nama_nasabah',
+					'b.alamat_nasabah',
+					'b.telepon',
+					'c.nama_kriteria as C1',
+					'd.nama_kriteria as C2',
+					'e.nama_kriteria as C6'
+				);
 				
 		return $query->get();
     }

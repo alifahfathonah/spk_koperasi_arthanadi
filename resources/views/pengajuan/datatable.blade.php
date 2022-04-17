@@ -98,13 +98,13 @@
                                 }
                           },
                           { 
-                                data: "jaminan", 
+                                data: "C1", 
                                 render: function ( val, type, row ){
                                     return val
                                   }
                           },
                           { 
-                                data: "karakter", 
+                                data: "C2", 
                                 render: function ( val, type, row ){
                                     return val
                                   }
@@ -128,7 +128,7 @@
                                   }
                           },
                           { 
-                                data: "kondisi_hutang", 
+                                data: "C6", 
                                 render: function ( val, type, row ){
                                     return val
                                   }

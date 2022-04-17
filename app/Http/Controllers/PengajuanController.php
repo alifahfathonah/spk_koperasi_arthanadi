@@ -130,6 +130,12 @@ class PengajuanController extends Controller
             'is_edit'                   => TRUE,
             'submit_url'                => url()->current(),
             'nameroutes'                => $this->nameroutes,
+            'jaminan'               => $this->model_kriteria::where('kode_kriteria', 'C1')->get(),
+            'karakter'               => $this->model_kriteria::where('kode_kriteria', 'C2')->get(),
+            'pendapatan'               => $this->model_kriteria::where('kode_kriteria', 'C3')->get(),
+            'pengeluaran'               => $this->model_kriteria::where('kode_kriteria', 'C4')->get(),
+            'kemampuan'               => $this->model_kriteria::where('kode_kriteria', 'C5')->get(),
+            'kondisi_hutang'               => $this->model_kriteria::where('kode_kriteria', 'C6')->get()
         ];
 
         //jika form sumbit

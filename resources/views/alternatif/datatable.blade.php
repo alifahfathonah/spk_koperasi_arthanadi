@@ -25,12 +25,9 @@
             <thead>
               <tr>
                 <th class="no-sort">No</th>
-                <th>ID Penarikan</th>
-                <th>Nama Anggota</th>
-                <th>Tanggal</th>
-                <th>Saldo</th>
-                <th>Jumlah Penarikan</th>
-                <th>Saldo Akhir</th>
+                <th>Kode Alternatif</th>
+                <th>ID Pengajuan</th>
+                <th>Nama Nasabah</th>
                 <th class="no-sort">Aksi</th>
               </tr>
             </thead>
@@ -66,7 +63,7 @@
 								type: "POST",
 								data: function(params){
 
-										}
+									}
 								},
               columns: [
                           {
@@ -77,39 +74,21 @@
                               }
                           },
                           { 
-                                data: "id_penarikan", 
-                                render: function ( val, type, row ){
-                                    return val
-                                  }
-                          },
-                          { 
-                                data: "nama_anggota", 
-                                render: function ( val, type, row ){
-                                    return val
-                                  }
-                          },
-                          { 
-                                data: "tanggal", 
-                                render: function ( val, type, row ){
-                                    return moment(val).format('DD/MM/YYYY')
-                                  }
-                          },
-                          { 
-                                data: "saldo_awal", 
-                                render: function ( val, type, row ){
-                                    return mask_number.currency_add(val)
-                                  }
-                          },
-                          { 
-                                data: "nominal", 
-                                render: function ( val, type, row ){
-                                  return mask_number.currency_add(val)
+                              data: "kode_alternatif", 
+                              render: function ( val, type, row ){
+                                  return val
                                 }
                           },
                           { 
-                                data: "saldo_akhir", 
-                                render: function ( val, type, row ){
-                                  return mask_number.currency_add(val)
+                              data: "id_pengajuan", 
+                              render: function ( val, type, row ){
+                                  return val
+                              }
+                          },
+                          { 
+                              data: "nama_nasabah", 
+                              render: function ( val, type, row ){
+                                  return val
                                 }
                           },
                           { 
@@ -121,7 +100,7 @@
                                       buttons += '<a class=\"btn btn-info btn-xs modalEdit\"><i class=\"fa fa-pencil\"></i> {{ __('global.label_edit') }}</a>';
                                       buttons += "</div>";
                                     return buttons
-                                  }
+                                }
                               },
                       ],
                       createdRow: function ( row, data, index ){		

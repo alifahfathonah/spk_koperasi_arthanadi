@@ -63,75 +63,22 @@ Route::prefix('pengajuan')->group(function() {
 	Route::match(array('GET', 'POST'),'/edit/{id}','PengajuanController@edit');
 	Route::match(array('GET', 'POST'),'/view/{id}','PengajuanController@view');
 });
-#PENARIKAN
-Route::prefix('penarikan')->group(function() {
-    Route::get('/', 'PenarikanController@index');
-	Route::match(array('GET', 'POST'),'/datatables','PenarikanController@datatables_collection');
-	Route::match(array('GET', 'POST'),'/create','PenarikanController@create');
-	Route::match(array('GET', 'POST'),'/edit/{id}','PenarikanController@edit');
-	Route::match(array('GET', 'POST'),'/view/{id}','PenarikanController@view');
+#ALTERNATIF
+Route::prefix('alternatif')->group(function() {
+    Route::get('/', 'AlternatifController@index');
+	Route::match(array('GET', 'POST'),'/datatables','AlternatifController@datatables_collection');
+	Route::match(array('GET', 'POST'),'/create','AlternatifController@create');
+	Route::match(array('GET', 'POST'),'/edit/{id}','AlternatifController@edit');
+	Route::match(array('GET', 'POST'),'/view/{id}','AlternatifController@view');
 });
-
-#AKUN
-Route::prefix('akun')->group(function() {
-    Route::get('/', 'AkunController@index');
-	Route::match(array('GET', 'POST'),'/datatables','AkunController@datatables_collection');
-	Route::match(array('GET', 'POST'),'/datatables-lookup-collection','AkunController@datatables_lookup_collection');
-	Route::match(array('GET', 'POST'),'/datatables-rkas-collection','AkunController@datatables_rkas_collection');
-	Route::match(array('GET', 'POST'),'/create','AkunController@create');
-	Route::match(array('GET', 'POST'),'/edit/{id}','AkunController@edit');
+#ALTERNATIF
+Route::prefix('proses-spk')->group(function() {
+    Route::get('/', 'ProsesSpkController@index');
+	Route::match(array('GET', 'POST'),'/datatables','ProsesSpkController@datatables_collection');
+	Route::match(array('GET', 'POST'),'/create','ProsesSpkController@create');
+	Route::match(array('GET', 'POST'),'/edit/{id}','ProsesSpkController@edit');
+	Route::match(array('GET', 'POST'),'/view/{id}','ProsesSpkController@view');
 });
-
-#PEMBAYARAN SPP
-Route::prefix('pembayaran-spp')->group(function() {
-    Route::get('/', 'PembayaranController@index');
-	Route::match(array('GET', 'POST'),'/datatables','PembayaranController@datatables_collection');
-	Route::match(array('GET', 'POST'),'/create','PembayaranController@create');
-	Route::match(array('GET', 'POST'),'/edit/{id}','PembayaranController@edit');
-	Route::match(array('GET'),'/setoran/{id}','PembayaranController@lookup_form_setoran');
-	Route::match(array('POST'),'/simpan-setoran','PembayaranController@simpan_setoran');
-	Route::match(array('GET', 'POST'),'/proses-setoran/{id}','PembayaranController@proses_setoran');
-	Route::match(array('GET', 'POST'),'/simpan-proses-setoran/{id}','PembayaranController@simpan_proses_setoran');
-	Route::match(array('GET'),'/cetak/{id}','PembayaranController@cetak');
-	Route::match(array('GET', 'POST'),'/batal/{id}','PembayaranController@batal');
-});
-
-#RKAS
-Route::prefix('rkas')->group(function() {
-    Route::get('/', 'RkasController@index');
-	Route::match(array('GET', 'POST'),'/datatables','RkasController@datatables_collection');
-	Route::match(array('GET', 'POST'),'/create','RkasController@create');
-	Route::match(array('GET', 'POST'),'/edit/{id}','RkasController@edit');
-	Route::match(array('GET'),'/cetak/{id}','RkasController@cetak');
-});
-#PENGELUARAN
-Route::prefix('pengeluaran')->group(function() {
-    Route::get('/', 'PengeluaranController@index');
-	Route::match(array('GET', 'POST'),'/datatables','PengeluaranController@datatables_collection');
-	Route::match(array('GET', 'POST'),'/create','PengeluaranController@create');
-	Route::match(array('GET', 'POST'),'/edit/{id}','PengeluaranController@edit');
-	Route::match(array('GET', 'POST'),'/cancel/{id}','PengeluaranController@cancel');
-	Route::match(array('GET'),'/cetak/{id}','PengeluaranController@cetak');
-	Route::match(array('GET', 'POST'),'/lookup_detail','PengeluaranController@lookup_detail');
-	Route::match(array('GET', 'POST'),'/detail/{id}','PengeluaranController@detail');
-	Route::post('/upload-nota','PengeluaranController@image_upload');
-	Route::match(array('GET', 'POST'),'/riwayat/{id}','PengeluaranController@riwayat');
-});
-
-#JURNAL
-Route::prefix('jurnal')->group(function() {
-    Route::get('/', 'JurnalController@index');
-	Route::match(array('GET', 'POST'),'/datatables','JurnalController@datatables_collection');
-	Route::match(array('GET', 'POST'),'/create','JurnalController@create');
-	Route::match(array('GET', 'POST'),'/detail/{id}','JurnalController@detail');
-	Route::match(array('GET', 'POST'),'/lookup_akun','JurnalController@lookup_akun');
-});
-
-#TRANSAKSI
-Route::prefix('transaksi')->group(function() {
-    Route::get('/', 'TransaksiController@index');
-});
-
 #DASHBOARD
 Route::prefix('dashboard')->group(function() {
 	Route::get('/','Dashboard@index');

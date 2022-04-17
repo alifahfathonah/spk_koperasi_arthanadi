@@ -5,11 +5,11 @@ namespace App\Http\Model;
 use Illuminate\Database\Eloquent\Model;
 use DB;
 
-class Simpanan_m extends Model
+class Alternatif_m extends Model
 {
-	protected $table = 'tb_simpanan';
+	protected $table = 'tb_alternatif';
 	protected $index_key = 'id';
-	protected $index_key2 = 'id_simpanan';
+	protected $index_key2 = 'kode_alternatif';
     public $timestamps  = false;
 
 	public $rules;
@@ -18,11 +18,11 @@ class Simpanan_m extends Model
 	{
         $this->rules = [
             'insert' => [
-                'id_simpanan' => "required|unique:$this->table",
-				'tanggal' => 'required',
+                'kode_alternatif' => "required|unique:$this->table",
+				'id_pengajuan' => "required|unique:$this->table",
             ],
 			'update' => [
-				'tanggal' => 'required',
+				'id_pengajuan' => 'required',
             ],
         ];
 	}
@@ -30,8 +30,17 @@ class Simpanan_m extends Model
     function get_all()
     {
 		$query = DB::table("{$this->table} as a")
-				->join('tb_anggota as b','a.id_anggota','=','b.id')
-				->select('a.*','b.nama_anggota');
+				->join('tb_pengajuan as b','a.id_pengajuan','=','b.id')
+				->join('tb_nasabah as c','b.id_nasabah','=','c.id')
+				->select(
+					'a.*',
+					'b.id as pengajuan_id',
+					'b.id_pengajuan',
+					'b.id_nasabah',
+					'c.nama_nasabah',
+					'c.alamat_nasabah',
+					'c.telepon'
+				);
 				
 		return $query->get();
     }
@@ -44,8 +53,17 @@ class Simpanan_m extends Model
 	function get_one($id)
 	{
 		$query = DB::table("{$this->table} as a")
-				->join('tb_anggota as b','a.id_anggota','=','b.id')
-				->select('a.*','b.nama_anggota')
+				->join('tb_pengajuan as b','a.id_pengajuan','=','b.id')
+				->join('tb_nasabah as c','b.id_nasabah','=','c.id')
+				->select(
+					'a.*',
+					'b.id as pengajuan_id',
+					'b.id_pengajuan',
+					'b.id_nasabah',
+					'c.nama_nasabah',
+					'c.alamat_nasabah',
+					'c.telepon'
+				)
 				->where("a.{$this->index_key}", $id);
 				
 		return $query->first();
@@ -54,8 +72,17 @@ class Simpanan_m extends Model
 	function get_by( $where )
 	{
 		$query = DB::table("{$this->table} as a")
-				->join('tb_anggota as b','a.id_anggota','=','b.id')
-				->select('a.*','b.nama_anggota')
+				->join('tb_pengajuan as b','a.id_pengajuan','=','b.id')
+				->join('tb_nasabah as c','b.id_nasabah','=','c.id')
+				->select(
+					'a.*',
+					'b.id as pengajuan_id',
+					'b.id_pengajuan',
+					'b.id_nasabah',
+					'c.nama_nasabah',
+					'c.alamat_nasabah',
+					'c.telepon'
+				)
 				->where($where);
 				
 		return $query->first();
@@ -87,23 +114,5 @@ class Simpanan_m extends Model
 
 		return (string) $no_generate;
 	}
-
-	function get_simpanan( $id_anggota )
-	{
-		$query = DB::table('tb_simpanan')
-				->where('id_anggota', $id_anggota)
-				->sum('nominal');
-
-		return $query;
-	}
-	function get_penarikan( $id_anggota )
-	{
-		$query = DB::table('tb_penarikan')
-				->where('id_anggota', $id_anggota)
-				->sum('nominal');
-
-		return $query;
-	}
-
 
 }

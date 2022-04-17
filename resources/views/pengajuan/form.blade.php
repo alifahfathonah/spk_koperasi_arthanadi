@@ -49,34 +49,19 @@
   <div class="form-group">
     <label class="col-lg-3 control-label">Kemampuan *</label>
     <div class="col-lg-9">
-      <select name="f[kemampuan]" class="form-control" required="" id="kemampuan">
-        <option value="" disabled="" selected="" hidden="">-- Pilih --</option>
-        <?php foreach(@$kemampuan as $dt): ?>
-          <option value="<?php echo @$dt->id ?>" <?= @$dt->id == @$item->kemampuan ? 'selected': null ?>><?php echo @$dt->nama_kriteria ?></option>
-        <?php endforeach; ?>
-      </select>
+      <input type="text" class="form-control" name="f[kemampuan]" required id="kemampuan" value="{{ @$item->kemampuan }}" placeholder="Kemampuan">
     </div>
   </div>
   <div class="form-group">
     <label class="col-lg-3 control-label">Pendapatan *</label>
     <div class="col-lg-9">
-      <select name="f[pendapatan]" class="form-control" required="" id="pendapatan">
-        <option value="" disabled="" selected="" hidden="">-- Pilih --</option>
-        <?php foreach(@$pendapatan as $dt): ?>
-          <option value="<?php echo @$dt->id ?>" <?= @$dt->id == @$item->pendapatan ? 'selected': null ?>><?php echo @$dt->nama_kriteria ?></option>
-        <?php endforeach; ?>
-      </select>
+      <input type="text" class="form-control" name="f[pendapatan]" required id="pendapatan" value="{{ @$item->pendapatan }}" placeholder="Pendapatan">
     </div>
   </div>
   <div class="form-group">
     <label class="col-lg-3 control-label">Pengeluaran *</label>
     <div class="col-lg-9">
-      <select name="f[pengeluaran]" class="form-control" required="" id="pengeluaran">
-        <option value="" disabled="" selected="" hidden="">-- Pilih --</option>
-        <?php foreach(@$pengeluaran as $dt): ?>
-          <option value="<?php echo @$dt->id ?>" <?= @$dt->id == @$item->pengeluaran ? 'selected': null ?>><?php echo @$dt->nama_kriteria ?></option>
-        <?php endforeach; ?>
-      </select>
+      <input type="text" class="form-control" name="f[pengeluaran]" required id="pengeluaran" value="{{ @$item->pengeluaran }}" placeholder="Pengeluaran">
     </div>
   </div>
   <div class="form-group">
