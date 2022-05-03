@@ -11,7 +11,7 @@
     <div class="col-lg-9">
       <div class="input-group data_collect_wrapper">
         <input type="text" name="nama_nasabah" id="nama_nasabah" class="form-control" placeholder="Nama Nasabah" value="{{ @$item->nama_nasabah }}" required="" readonly>
-        <input type="hidden" name="f[id_nasabah]" id="id_nasabah" class="form-control" placeholder="ID Nasabah" value="{{ @$item->id_nasabah }}" required="" readonly>
+        <input type="hidden" name="f[id_alternatif]" id="id_alternatif" class="form-control" placeholder="" value="{{ @$item->id_alternatif }}" required="" readonly>
         <div class="input-group-btn">
           <a href="javascript:;" id="lookup_nasabah" class="btn btn-info btn-flat data_collect_btn"><i class="fa fa-search"></i> Cari</a>
         </div>
@@ -89,21 +89,21 @@
     mask_number.init()
 
     $('#lookup_nasabah').dataCollect({
-        ajaxUrl: "{{ url('nasabah/datatables') }}",
+        ajaxUrl: "{{ url('pengajuan/lookup_alternatif') }}",
         modalSize : 'modal-lg',
         modalTitle : 'DAFTAR PILIHAN NASABAH',
         modalTxtSelect : 'Pilih Nasabah',
         dtOrdering : true,
         dtOrder: [],
-        dtThead:['ID Nasabah','Nama Nasabah','Telepon','Alamat'],
+        dtThead:['Kode Alternatif','ID Nasabah','Nama Nasabah','Alamat'],
         dtColumns: [
+            {data: "kode_alternatif"}, 
             {data: "id_nasabah"}, 
             {data: "nama_nasabah"}, 
-            {data: "telepon"}, 
             {data: "alamat_nasabah"}, 
         ],
         onSelected: function(data, _this){	
-          $('#id_nasabah').val(data.id);
+          $('#id_alternatif').val(data.id);
           $('#nama_nasabah').val(data.nama_nasabah);
           $('#alamat_nasabah').val(data.alamat_nasabah); 
           return true;
@@ -119,7 +119,7 @@
     $(".spinner").css("display", "");
 
     var post_pengajuan = {
-          'id_nasabah'    : $("#id_nasabah").val(),
+          'id_alternatif'    : $("#id_alternatif").val(),
           'tgl_pengajuan' : $("#tgl_pengajuan").val(),
           'jaminan' : $("#jaminan").val(),
           'karakter' : $("#karakter").val(),

@@ -3,7 +3,7 @@
   <div class="form-group">
     <label class="col-lg-3 control-label">Kode Alternatif *</label>
     <div class="col-lg-9">
-      <input type="text" class="form-control" name="f[kode_alternatif]" id="kode_alternatif" value="{{ @$item->kode_alternatif }}" placeholder="Kode Alternatif" required="">
+      <input type="text" class="form-control" name="f[kode_alternatif]" id="kode_alternatif" value="{{ @$item->kode_alternatif }}" placeholder="Kode Alternatif" required="" readonly>
     </div>
   </div>
   <div class="form-group">
@@ -11,9 +11,9 @@
     <div class="col-lg-9">
       <div class="input-group data_collect_wrapper">
         <input type="text" name="nama_nasabah" id="nama_nasabah" class="form-control" placeholder="Nama Nasabah" value="{{ @$item->nama_nasabah }}" required="" readonly>
-        <input type="hidden" name="f[id_pengajuan]" id="id_pengajuan" class="form-control" placeholder="ID Pengajuan" value="{{ @$item->pengajuan_id }}" required="" readonly>
+        <input type="hidden" name="f[id_nasabah]" id="id_nasabah" class="form-control" placeholder="ID Nasabah" value="{{ @$item->id_nasabah }}" required="" readonly>
         <div class="input-group-btn">
-          <a href="javascript:;" id="lookup_pengajuan" class="btn btn-info btn-flat data_collect_btn"><i class="fa fa-search"></i> Cari</a>
+          <a href="javascript:;" id="lookup_nasabah" class="btn btn-info btn-flat data_collect_btn"><i class="fa fa-search"></i> Cari</a>
         </div>
       </div>
     </div>
@@ -31,21 +31,21 @@
 	$( document ).ready(function(e) {
     mask_number.init()
 
-    $('#lookup_pengajuan').dataCollect({
-        ajaxUrl: "{{ url('pengajuan/datatables') }}",
+    $('#lookup_nasabah').dataCollect({
+        ajaxUrl: "{{ url('nasabah/datatables') }}",
         modalSize : 'modal-lg',
         modalTitle : 'DAFTAR PILIHAN NASABAH',
         modalTxtSelect : 'Pilih Nasabah',
         dtOrdering : true,
         dtOrder: [],
-        dtThead:['ID Pengajuan','Tanggal Pengajuan','Nama Nasabah'],
+        dtThead:['ID Nasabah','Nama Nasabah','Alamat'],
         dtColumns: [
-            {data: "id_pengajuan"}, 
-            {data: "tgl_pengajuan"}, 
+            {data: "id_nasabah"}, 
             {data: "nama_nasabah"}, 
+            {data: "alamat_nasabah"}, 
         ],
         onSelected: function(data, _this){	
-          $('#id_pengajuan').val(data.id);
+          $('#id_nasabah').val(data.id);
           $('#nama_nasabah').val(data.nama_nasabah);
           return true;
         }
@@ -60,7 +60,7 @@
     $(".spinner").css("display", "");
 
     var post = {
-          'id_pengajuan'    : $("#id_pengajuan").val(),
+          'id_nasabah'    : $("#id_nasabah").val(),
           'kode_alternatif' : $("#kode_alternatif").val()
         }
      data_post = {

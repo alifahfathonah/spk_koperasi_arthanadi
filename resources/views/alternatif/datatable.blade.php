@@ -26,7 +26,6 @@
               <tr>
                 <th class="no-sort">No</th>
                 <th>Kode Alternatif</th>
-                <th>ID Pengajuan</th>
                 <th>Nama Nasabah</th>
                 <th class="no-sort">Aksi</th>
               </tr>
@@ -78,12 +77,6 @@
                               render: function ( val, type, row ){
                                   return val
                                 }
-                          },
-                          { 
-                              data: "id_pengajuan", 
-                              render: function ( val, type, row ){
-                                  return val
-                              }
                           },
                           { 
                               data: "nama_nasabah", 

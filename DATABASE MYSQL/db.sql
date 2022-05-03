@@ -23,15 +23,34 @@ DROP TABLE IF EXISTS `tb_alternatif`;
 CREATE TABLE `tb_alternatif` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `kode_alternatif` varchar(11) DEFAULT NULL,
-  `id_pengajuan` int(11) DEFAULT NULL,
+  `id_nasabah` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `tb_alternatif` */
 
-insert  into `tb_alternatif`(`id`,`kode_alternatif`,`id_pengajuan`) values 
+insert  into `tb_alternatif`(`id`,`kode_alternatif`,`id_nasabah`) values 
 (1,'A1',1),
 (2,'A2',2);
+
+/*Table structure for table `tb_bobot_kriteria` */
+
+DROP TABLE IF EXISTS `tb_bobot_kriteria`;
+
+CREATE TABLE `tb_bobot_kriteria` (
+  `key` varchar(100) DEFAULT NULL,
+  `value` varchar(100) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+/*Data for the table `tb_bobot_kriteria` */
+
+insert  into `tb_bobot_kriteria`(`key`,`value`) values 
+('C1','0.22535'),
+('C2','0.1766'),
+('C3','0.20948'),
+('C4','0.20948'),
+('C5','0.15663'),
+('C6','0.13020');
 
 /*Table structure for table `tb_group_kriteria` */
 
@@ -60,11 +79,45 @@ insert  into `tb_group_kriteria`(`id`,`kode_kriteria`,`nama_kriteria`,`jenis_kri
 DROP TABLE IF EXISTS `tb_hasil`;
 
 CREATE TABLE `tb_hasil` (
-  `id_hasil` int(11) NOT NULL,
-  PRIMARY KEY (`id_hasil`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4;
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id_pengajuan` varchar(20) DEFAULT NULL,
+  `alternatif` varchar(20) DEFAULT NULL,
+  `c1` varchar(100) DEFAULT NULL,
+  `c2` varchar(100) DEFAULT NULL,
+  `c3` varchar(100) DEFAULT NULL,
+  `c4` varchar(100) DEFAULT NULL,
+  `c5` varchar(100) DEFAULT NULL,
+  `c6` varchar(100) DEFAULT NULL,
+  `hasil` varchar(100) DEFAULT NULL,
+  `kesimpulan` varchar(100) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `tb_hasil` */
+
+insert  into `tb_hasil`(`id`,`id_pengajuan`,`alternatif`,`c1`,`c2`,`c3`,`c4`,`c5`,`c6`,`hasil`,`kesimpulan`,`created_at`) values 
+(12,'PGJ000002','A2','22.54','0','20.95','20.95','15.66','0','80.09','Layak','2022-05-03 10:07:42'),
+(11,'PGJ000001','A1','0','17.66','0','0','0','13.02','30.68','Tidak Layak','2022-05-03 10:07:42');
+
+/*Table structure for table `tb_hasil_normalisasi` */
+
+DROP TABLE IF EXISTS `tb_hasil_normalisasi`;
+
+CREATE TABLE `tb_hasil_normalisasi` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id_pengajuan` varchar(20) DEFAULT NULL,
+  `alternatif` varchar(10) DEFAULT NULL,
+  `c1` float DEFAULT NULL,
+  `c2` float DEFAULT NULL,
+  `c3` float DEFAULT NULL,
+  `c4` float DEFAULT NULL,
+  `c5` float DEFAULT NULL,
+  `c6` float DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=45 DEFAULT CHARSET=utf8mb4;
+
+/*Data for the table `tb_hasil_normalisasi` */
 
 /*Table structure for table `tb_kriteria` */
 
@@ -119,8 +172,8 @@ DROP TABLE IF EXISTS `tb_pengajuan`;
 
 CREATE TABLE `tb_pengajuan` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `id_pengajuan` varchar(100) DEFAULT NULL,
-  `id_nasabah` int(11) DEFAULT NULL,
+  `id_pengajuan` varchar(100) NOT NULL,
+  `id_alternatif` int(11) DEFAULT NULL,
   `tgl_pengajuan` date DEFAULT NULL,
   `jaminan` varchar(100) DEFAULT NULL,
   `karakter` varchar(100) DEFAULT NULL,
@@ -128,14 +181,15 @@ CREATE TABLE `tb_pengajuan` (
   `pendapatan` varchar(50) DEFAULT NULL,
   `pengeluaran` varchar(50) DEFAULT NULL,
   `kondisi_hutang` varchar(100) DEFAULT NULL,
-  PRIMARY KEY (`id`)
+  `sudah_proses` tinyint(1) DEFAULT 0,
+  PRIMARY KEY (`id`,`id_pengajuan`)
 ) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `tb_pengajuan` */
 
-insert  into `tb_pengajuan`(`id`,`id_pengajuan`,`id_nasabah`,`tgl_pengajuan`,`jaminan`,`karakter`,`kemampuan`,`pendapatan`,`pengeluaran`,`kondisi_hutang`) values 
-(1,'PGJ000001',1,'2022-04-17','1','6','4','2','3','9'),
-(2,'PGJ000002',2,'2022-04-17','3','6','4','2','3','8');
+insert  into `tb_pengajuan`(`id`,`id_pengajuan`,`id_alternatif`,`tgl_pengajuan`,`jaminan`,`karakter`,`kemampuan`,`pendapatan`,`pengeluaran`,`kondisi_hutang`,`sudah_proses`) values 
+(1,'PGJ000001',1,'2022-04-17','1','7','5','5','4','9',1),
+(2,'PGJ000002',2,'2022-04-17','3','6','4','2','3','8',1);
 
 /*Table structure for table `tb_pengguna` */
 

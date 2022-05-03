@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Model\Alternatif_m;
 use App\Http\Model\Pengajuan_m;
+use App\Http\Requests\AlternatifRequest;
 use Illuminate\Http\Request;
 use Validator;
 use DataTables;
@@ -15,10 +16,12 @@ class AlternatifController extends Controller
 {
     protected $model;
     protected $model_pengajuan;
-    public function __construct(Alternatif_m $model, Pengajuan_m $model_pengajuan)
+    protected $alternatif_request;
+    public function __construct(Alternatif_m $model, Pengajuan_m $model_pengajuan, AlternatifRequest $alternatif_request)
     {
         $this->model = $model;
         $this->model_pengajuan = $model_pengajuan;
+        $this->alternatif_request = $alternatif_request;
         $this->nameroutes = 'alternatif';
     }
     /**
@@ -44,8 +47,8 @@ class AlternatifController extends Controller
     public function create(Request $request)
     {
         $item = [
-            'kode_alternatif'  => null,
-            'id_pengajuan' => null,
+            'kode_alternatif'  => $this->model->gen_code('A'),
+            'id_nasabah' => null,
         ];
         $data = array(
             'item'                  => (object) $item,
@@ -134,9 +137,9 @@ class AlternatifController extends Controller
            $header = $request->input('f');
            //validasi dari model
            $validator = Validator::make( $header, [
-                'id_pengajuan' => [Rule::unique('tb_alternatif')->ignore($get_data->pengajuan_id, 'id_pengajuan')],
+                'id_nasabah' => [Rule::unique('tb_alternatif')->ignore($get_data->id_nasabah, 'id_nasabah')],
                 'kode_alternatif' => [Rule::unique('tb_alternatif')->ignore($get_data->kode_alternatif, 'kode_alternatif')],
-            ]);
+            ], [], $this->alternatif_request->attributes());
            if ($validator->fails()) {
                $response = [
                    'message' => $validator->errors()->first(),

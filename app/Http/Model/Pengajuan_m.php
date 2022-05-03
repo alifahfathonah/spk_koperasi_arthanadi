@@ -30,11 +30,13 @@ class Pengajuan_m extends Model
     function get_all()
     {
 		$query = DB::table("{$this->table} as a")
-				->join('tb_nasabah as b','a.id_nasabah','=','b.id')
+				->join('tb_alternatif as xx','a.id_alternatif','=','xx.id')
+				->join('tb_nasabah as b','xx.id_nasabah','=','b.id')
 				->join('tb_kriteria as c','a.jaminan','=','c.id')
 				->join('tb_kriteria as d','a.karakter','=','d.id')
 				->join('tb_kriteria as e','a.kondisi_hutang','=','e.id')
 				->select(
+					'xx.kode_alternatif',
 					'a.*',
 					'b.nama_nasabah',
 					'b.alamat_nasabah',
@@ -47,6 +49,22 @@ class Pengajuan_m extends Model
 		return $query->get();
     }
 
+	function get_all_lookup_alternatif()
+	{
+		$query = DB::table('tb_alternatif as a')
+				->join('tb_nasabah as b','a.id_nasabah','=','b.id')
+				->select(
+					'a.*',
+					'b.id_nasabah as kode_nasabah',
+					'b.nama_nasabah',
+					'b.alamat_nasabah'
+				)
+				->get();
+
+				return $query;
+	}
+
+
     function insert_data($data)
 	{
 		return self::insert($data);
@@ -55,7 +73,8 @@ class Pengajuan_m extends Model
 	function get_one($id)
 	{
 		$query = DB::table("{$this->table} as a")
-				->join('tb_nasabah as b','a.id_nasabah','=','b.id')
+				->join('tb_alternatif as xx','a.id_alternatif','=','xx.id')
+				->join('tb_nasabah as b','xx.id_nasabah','=','b.id')
 				->select('a.*','b.nama_nasabah','b.alamat_nasabah','b.telepon')
 				->where("a.{$this->index_key}", $id);
 				
@@ -65,7 +84,8 @@ class Pengajuan_m extends Model
 	function get_by( $where )
 	{
 		$query = DB::table("{$this->table} as a")
-				->join('tb_nasabah as b','a.id_nasabah','=','b.id')
+				->join('tb_alternatif as xx','a.id_alternatif','=','xx.id')
+				->join('tb_nasabah as b','xx.id_nasabah','=','b.id')
 				->select('a.*','b.nama_nasabah','b.alamat_nasabah','b.telepon')
 				->where($where);
 				

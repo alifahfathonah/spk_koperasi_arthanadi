@@ -19,10 +19,10 @@ class Alternatif_m extends Model
         $this->rules = [
             'insert' => [
                 'kode_alternatif' => "required|unique:$this->table",
-				'id_pengajuan' => "required|unique:$this->table",
+				'id_nasabah' => "required|unique:$this->table",
             ],
 			'update' => [
-				'id_pengajuan' => 'required',
+				'id_nasabah' => 'required',
             ],
         ];
 	}
@@ -30,16 +30,12 @@ class Alternatif_m extends Model
     function get_all()
     {
 		$query = DB::table("{$this->table} as a")
-				->join('tb_pengajuan as b','a.id_pengajuan','=','b.id')
-				->join('tb_nasabah as c','b.id_nasabah','=','c.id')
+				->join('tb_nasabah as b','a.id_nasabah','=','b.id')
 				->select(
 					'a.*',
-					'b.id as pengajuan_id',
-					'b.id_pengajuan',
-					'b.id_nasabah',
-					'c.nama_nasabah',
-					'c.alamat_nasabah',
-					'c.telepon'
+					'b.nama_nasabah',
+					'b.alamat_nasabah',
+					'b.telepon'
 				);
 				
 		return $query->get();
@@ -53,16 +49,12 @@ class Alternatif_m extends Model
 	function get_one($id)
 	{
 		$query = DB::table("{$this->table} as a")
-				->join('tb_pengajuan as b','a.id_pengajuan','=','b.id')
-				->join('tb_nasabah as c','b.id_nasabah','=','c.id')
+				->join('tb_nasabah as b','a.id_nasabah','=','b.id')
 				->select(
 					'a.*',
-					'b.id as pengajuan_id',
-					'b.id_pengajuan',
-					'b.id_nasabah',
-					'c.nama_nasabah',
-					'c.alamat_nasabah',
-					'c.telepon'
+					'b.nama_nasabah',
+					'b.alamat_nasabah',
+					'b.telepon'
 				)
 				->where("a.{$this->index_key}", $id);
 				
@@ -72,16 +64,12 @@ class Alternatif_m extends Model
 	function get_by( $where )
 	{
 		$query = DB::table("{$this->table} as a")
-				->join('tb_pengajuan as b','a.id_pengajuan','=','b.id')
-				->join('tb_nasabah as c','b.id_nasabah','=','c.id')
+				->join('tb_nasabah as b','a.id_nasabah','=','b.id')
 				->select(
 					'a.*',
-					'b.id as pengajuan_id',
-					'b.id_pengajuan',
-					'b.id_nasabah',
-					'c.nama_nasabah',
-					'c.alamat_nasabah',
-					'c.telepon'
+					'b.nama_nasabah',
+					'b.alamat_nasabah',
+					'b.telepon'
 				)
 				->where($where);
 				
@@ -107,10 +95,10 @@ class Alternatif_m extends Model
 	function gen_code( $format )
 	{
 		$max_number = self::all()->max($this->index_key2);
-		$noUrut = (int) substr($max_number, 6, 6);
+		$noUrut = (int) substr($max_number, 1, 1);
 		$noUrut++;
 		$code = $format;
-		$no_generate = $code . sprintf("%06s", $noUrut);
+		$no_generate = $code . sprintf("%01s", $noUrut);
 
 		return (string) $no_generate;
 	}

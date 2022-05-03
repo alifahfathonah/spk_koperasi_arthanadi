@@ -20,27 +20,31 @@
         </div>
       </div>
       <!-- /.box-header -->
-      <div class="box-body">
-        <table class="table table-striped table-bordered table-hover" id="{{ $idDatatables }}" width="100%">   
-            <thead>
-              <tr>
-                <th class="no-sort">No</th>
-                <th>ID Pengajuan</th>
-                <th>Tanggal Pengajuan</th>
-                <th>Nama Nasabah</th>
-                <th>Jaminan</th>
-                <th>Karakter</th>
-                <th>Kemampuan</th>
-                <th>Pendapatan</th>
-                <th>Pengeluaran</th>
-                <th>Kondisi Hutang</th>
-                <th class="no-sort">Aksi</th>
-              </tr>
-            </thead>
-            <tbody>
-            
-          </tbody>
-          </table>
+      <div class="table-responsive">
+        <div class="box-body">
+          <table class="table table-striped table-bordered table-hover" id="{{ $idDatatables }}" width="100%">   
+              <thead>
+                <tr>
+                  <th class="no-sort">No</th>
+                  <th>ID Pengajuan</th>
+                  <th>Tanggal Pengajuan</th>
+                  <th>Kode</th>
+                  <th>Nama Nasabah</th>
+                  <th>Jaminan</th>
+                  <th>Karakter</th>
+                  <th>Kemampuan</th>
+                  <th>Pendapatan</th>
+                  <th>Pengeluaran</th>
+                  <th>Kondisi Hutang</th>
+                  <th>Status Proses</th>
+                  <th class="no-sort">Aksi</th>
+                </tr>
+              </thead>
+              <tbody>
+              
+            </tbody>
+            </table>
+        </div>
       </div>
     </div>
 
@@ -92,6 +96,12 @@
                               }
                           },
                           { 
+                              data: "kode_alternatif", 
+                              render: function ( val, type, row ){
+                                  return val
+                                }
+                          },
+                          { 
                               data: "nama_nasabah", 
                               render: function ( val, type, row ){
                                   return val
@@ -132,6 +142,17 @@
                                 render: function ( val, type, row ){
                                     return val
                                   }
+                          },
+                          { 
+                              data: "sudah_proses", 
+                              render: function ( val, type, row ){
+                                  if(val == 1){
+                                    var label = '<label class="label label-success">Sudah Proses</label>'
+                                  }else{
+                                    var label = '<label class="label label-warning">Belum Proses</label>'
+                                  }
+                                  return label
+                              }
                           },
                           { 
                                 data: "id",

@@ -22,7 +22,7 @@ Route::get('/login','Login@login');
 Route::post('/auth','Login@auth');
 Route::get('/logout', 'Login@logout');
 
-// Route::group(['middleware' => ['admin']], function () {
+Route::group(['middleware' => ['admin']], function () {
 #PETUGAS
 Route::prefix('user')->group(function() {
     Route::get('/', 'UserController@index');
@@ -62,6 +62,7 @@ Route::prefix('pengajuan')->group(function() {
 	Route::match(array('GET', 'POST'),'/create','PengajuanController@create');
 	Route::match(array('GET', 'POST'),'/edit/{id}','PengajuanController@edit');
 	Route::match(array('GET', 'POST'),'/view/{id}','PengajuanController@view');
+	Route::match(array('GET', 'POST'),'/lookup_alternatif','PengajuanController@datatables_lookup_alternatif');
 });
 #ALTERNATIF
 Route::prefix('alternatif')->group(function() {
@@ -75,9 +76,12 @@ Route::prefix('alternatif')->group(function() {
 Route::prefix('proses-spk')->group(function() {
     Route::get('/', 'ProsesSpkController@index');
 	Route::match(array('GET', 'POST'),'/datatables','ProsesSpkController@datatables_collection');
-	Route::match(array('GET', 'POST'),'/create','ProsesSpkController@create');
-	Route::match(array('GET', 'POST'),'/edit/{id}','ProsesSpkController@edit');
-	Route::match(array('GET', 'POST'),'/view/{id}','ProsesSpkController@view');
+	Route::match(array('GET', 'POST'),'/proses-normalisasi','ProsesSpkController@proses_normalisasi');
+	Route::match(array('GET', 'POST'),'/proses-fucom-smart','ProsesSpkController@proses_fucom_smart');
+	Route::match(array('GET', 'POST'),'/normalisasi','ProsesSpkController@normalisasi');
+	Route::match(array('GET', 'POST'),'/fucom-smart','ProsesSpkController@fucom_smart');
+	Route::match(array('GET', 'POST'),'/datatables-normalisasi','ProsesSpkController@datatables_collection_normalisasi');
+	Route::match(array('GET', 'POST'),'/datatables-fucom-smart','ProsesSpkController@datatables_collection_fucom_smart');
 });
 #DASHBOARD
 Route::prefix('dashboard')->group(function() {
@@ -119,7 +123,7 @@ Route::prefix('laporan')->group(function() {
 	Route::post('/neraca/print','Laporan@print_neraca');
 });
 
-// });
+});
 
 
 

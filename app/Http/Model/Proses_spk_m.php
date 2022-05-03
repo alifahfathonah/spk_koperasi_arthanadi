@@ -7,9 +7,9 @@ use DB;
 
 class Proses_spk_m extends Model
 {
-	protected $table = 'tb_alternatif';
+	protected $table = 'tb_pengajuan';
 	protected $index_key = 'id';
-	protected $index_key2 = 'kode_alternatif';
+	protected $index_key2 = 'kode_pengajuan';
     public $timestamps  = false;
 
 	public $rules;
@@ -17,39 +17,33 @@ class Proses_spk_m extends Model
     public function __construct()
 	{
         $this->rules = [
-            'insert' => [
-                'kode_alternatif' => "required|unique:$this->table",
-				'id_pengajuan' => "required|unique:$this->table",
-            ],
-			'update' => [
-				'id_pengajuan' => 'required',
-            ],
+
         ];
 	}
 
     function get_all()
     {
 		$query = DB::table("{$this->table} as a")
-				->join('tb_pengajuan as b','a.id_pengajuan','=','b.id')
+				->join('tb_alternatif as b','a.id_alternatif','=','b.id')
 				->join('tb_nasabah as c','b.id_nasabah','=','c.id')
-				->join('tb_kriteria as d','b.jaminan','=','d.id')
-				->join('tb_kriteria as e','b.karakter','=','e.id')
-				->join('tb_kriteria as f','b.kondisi_hutang','=','f.id')
+				->join('tb_kriteria as d','a.jaminan','=','d.id')
+				->join('tb_kriteria as e','a.karakter','=','e.id')
+				->join('tb_kriteria as f','a.kondisi_hutang','=','f.id')
 				->select(
 					'a.*',
-					'b.id as pengajuan_id',
-					'b.id_pengajuan',
-					'b.id_nasabah',
+					'a.id as pengajuan_id',
+					'b.kode_alternatif',
 					'c.nama_nasabah',
 					'c.alamat_nasabah',
 					'c.telepon',
 					'd.bobot_kriteria as C1',
 					'e.bobot_kriteria as C2',
-					'b.pendapatan as C3',
-					'b.pengeluaran as C4',
-					'b.kemampuan as C5',
+					'a.pendapatan as C3',
+					'a.pengeluaran as C4',
+					'a.kemampuan as C5',
 					'f.bobot_kriteria as C6'
-				);
+				)
+				->where(['a.sudah_proses' => 0]);
 				
 		return $query->get();
     }
@@ -62,24 +56,23 @@ class Proses_spk_m extends Model
 	function get_one($id)
 	{
 		$query = DB::table("{$this->table} as a")
-				->join('tb_pengajuan as b','a.id_pengajuan','=','b.id')
+				->join('tb_alternatif as b','a.id_alternatif','=','b.id')
 				->join('tb_nasabah as c','b.id_nasabah','=','c.id')
-				->join('tb_kriteria as d','b.jaminan','=','d.id')
-				->join('tb_kriteria as e','b.karakter','=','e.id')
-				->join('tb_kriteria as f','b.kondisi_hutang','=','f.id')
+				->join('tb_kriteria as d','a.jaminan','=','d.id')
+				->join('tb_kriteria as e','a.karakter','=','e.id')
+				->join('tb_kriteria as f','a.kondisi_hutang','=','f.id')
 				->select(
 					'a.*',
-					'b.id as pengajuan_id',
-					'b.id_pengajuan',
-					'b.id_nasabah',
+					'a.id as pengajuan_id',
+					'b.kode_alternatif',
 					'c.nama_nasabah',
 					'c.alamat_nasabah',
 					'c.telepon',
 					'd.bobot_kriteria as C1',
 					'e.bobot_kriteria as C2',
-					'b.pendapatan as C3',
-					'b.pengeluaran as C4',
-					'b.kemampuan as C5',
+					'a.pendapatan as C3',
+					'a.pengeluaran as C4',
+					'a.kemampuan as C5',
 					'f.bobot_kriteria as C6'
 				)
 				->where("a.{$this->index_key}", $id);

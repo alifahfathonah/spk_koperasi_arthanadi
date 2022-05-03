@@ -1,5 +1,7 @@
 <?php
 namespace App\Helpers;
+
+use App\Http\Model\Bobot_kriteria_m;
 use Session;
 use App\Http\Model\Jabatan_m;
 use App\Http\Model\Config_m;
@@ -57,4 +59,5 @@ class Helpers{
         $query = $model_config->get_one($params);
         return $query->value;
     }
+
 }
