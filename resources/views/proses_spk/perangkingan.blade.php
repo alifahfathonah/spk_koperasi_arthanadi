@@ -5,32 +5,29 @@
   </h1>
   <ol class="breadcrumb">
     <li><a href="#"><i class="fa fa-dashboard"></i> Master</a></li>
+    <li><a href="{{ url('proses-spk/fucom-smart') }}">Hasil Perhitungan</a></li>
     <li class="active">{{ @$title }}</li>
   </ol>
 @endsection
 @section('content')  
     <div class="box">
       <div class="box-header with-border">
-        <h3 class="box-title">{{ @$title }}</h3>
+        <h3 class="box-title">Hasil Perangkingan</h3>
       </div>
       <div class="table-responsive">
         <div class="box-body">
-          <table class="table table-striped table-bordered table-hover" id="dt_fucom_smart" width="100%">   
+          <table class="table table-striped table-bordered table-hover" id="dt_perangkingan" width="100%">   
               <thead>
                 <tr>
                   <th class="no-sort">No</th>
-                  <th>ID Pengajuan</th>
-                  {{-- <th>Tgl Pengajuan</th> --}}
                   <th>Alternatif</th>
-                  <th>Nama Nasabah</th>
                   <th>C1</th>
                   <th>C2</th>
                   <th>C3</th>
                   <th>C4</th>
                   <th>C5</th>
                   <th>C6</th>
-                  <th>Hasil Akhir</th>
-                  <th>Kesimpulan</th>
+                  <th>Hasil</th>
                 </tr>
               </thead>
               <tbody>
@@ -38,25 +35,44 @@
             </tbody>
             </table>
           </div>
-      </div>
-          <div class="box-tools pull-right">
-            <br>
-            <div class="btn-group">
-              <a href="{{ url('proses-spk/perangkingan') }}" class="btn btn-success btn-save">{{ "Lanjut Ke Perangkingan" }} <i class="fa fa-arrow-circle-right" aria-hidden="true"></i> <i class="fas fa-spinner fa-spin spinner" style="display: none"></i></a> 
-            </div>
         </div>
       </div>
 <!-- DataTable -->
+
+<div class="box">
+  <div class="box-header with-border">
+    <h3 class="box-title">Hasil Perangkingan Setelah Diurutkan</h3>
+  </div>
+  <div class="table-responsive">
+    <div class="box-body">
+      <table class="table table-striped table-bordered table-hover" id="dt_perangkingan_diurutkan" width="100%">   
+          <thead>
+            <tr>
+              <th>Urutan</th>
+              <th>Alternatif</th>
+              <th>Nama Nasabah</th>
+              <th>Hasil Akhir</th>
+              <th>Kesimpulan</th>
+            </tr>
+          </thead>
+          <tbody>
+          
+        </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
 <script type="text/javascript">
-    let _datatables_fucom_smart = {
-      dt__datatables_fucom_smart:function(){
-        var _this = $("#dt_fucom_smart");
+    let _datatables_perangkingan = {
+      dt__datatables_perangkingan:function(){
+        var _this = $("#dt_perangkingan");
             _datatable = _this.DataTable({		
               processing: true,
               serverSide: true,
               paginate: false,
               ordering: true,
-              order: [],
+              order: [1, 'asc'],
               searching: false,
               info: false,
               responsive: true,							
@@ -76,28 +92,10 @@
                               }
                           },
                           { 
-                              data: "id_pengajuan", 
-                              render: function ( val, type, row ){
-                                  return val
-                                }
-                          },
-                          // { 
-                          //     data: "tgl_pengajuan", 
-                          //     render: function ( val, type, row ){
-                          //         return moment(val).format('DD MMMM YYYY')
-                          //       }
-                          // },
-                          { 
                               data: "alternatif", 
                               render: function ( val, type, row ){
                                   return val
                                 }
-                          },
-                          { 
-                              data: "nama_nasabah", 
-                              render: function ( val, type, row ){
-                                  return val
-                              }
                           },
                           { 
                               data: "c1", 
@@ -141,6 +139,66 @@
                                   return '<label class="label label-danger">' + val + '</label>'
                                 }
                           },
+                      ],
+                      createdRow: function ( row, data, index ){		
+       
+
+                      }
+                                                  
+                  });
+							
+                  return _this;
+				}
+			}
+
+
+      // ==========================
+      let _datatables_perangkingan_diurutkan = {
+      dt__datatables_perangkingan_diurutkan:function(){
+        var _this = $("#dt_perangkingan_diurutkan");
+            _datatable = _this.DataTable({		
+              processing: true,
+              serverSide: true,
+              paginate: false,
+              ordering: true,
+              order: [3, 'desc'],
+              searching: false,
+              info: false,
+              responsive: true,							
+              ajax: {
+								url: "{{ url('proses-spk/datatables-fucom-smart') }}",
+								type: "POST",
+								data: function(params){
+
+									}
+								},
+              columns: [
+                          {
+                              data: "id_pengajuan",
+                              className: "text-center",
+                              render: function (data, type, row, meta) {
+                                var urutan = meta.row + meta.settings._iDisplayStart + 1;
+                                  return 'Hasil Terbaik ' + urutan
+                              }
+                          },
+                          { 
+                              data: "alternatif", 
+                              render: function ( val, type, row ){
+                                  return val
+                                }
+                          },
+                          { 
+                              data: "nama_nasabah", 
+                              render: function ( val, type, row ){
+                                  return val
+                                }
+                          },
+                          { 
+                              data: "hasil", 
+                              render: function ( val, type, row ){
+                                  return '<label class="label label-danger">' + val + '</label>'
+                                }
+                          },
                           { 
                               data: "kesimpulan", 
                               render: function ( val, type, row ){
@@ -165,7 +223,8 @@
 			}
 
 $(document).ready(function() {
-    _datatables_fucom_smart.dt__datatables_fucom_smart();
+    _datatables_perangkingan.dt__datatables_perangkingan();
+    _datatables_perangkingan_diurutkan.dt__datatables_perangkingan_diurutkan();
 });
 
 </script>

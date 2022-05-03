@@ -122,19 +122,19 @@
                           { 
                                 data: "kemampuan", 
                                 render: function ( val, type, row ){
-                                    return val
+                                    return val + ' Tahun'
                                   }
                           },
                           { 
                                 data: "pendapatan", 
                                 render: function ( val, type, row ){
-                                    return val
+                                    return val + ' Juta'
                                   }
                           },
                           { 
                                 data: "pengeluaran", 
                                 render: function ( val, type, row ){
-                                    return val
+                                    return val + ' Juta'
                                   }
                           },
                           { 

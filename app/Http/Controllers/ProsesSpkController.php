@@ -92,12 +92,12 @@ class ProsesSpkController extends Controller
                 $data_perhitungan[] = [
                     'id_pengajuan' => $row['id_pengajuan'],
                     'alternatif' => $row['kode_alternatif'],
-                    'c1' => 100 * ($C1_max-$C1_min > 0 ? ($C1_max-$row['C1']) / ($C1_max-$C1_min) : 0),
-                    'c2' => 100 * ($C2_max-$C2_min > 0 ? ($C2_max-$row['C2']) / ($C2_max-$C2_min) : 0 ),
-                    'c3' => 100 * ($C3_max-$C3_min > 0 ? ($C3_max-$row['C3']) / ($C3_max-$C3_min) : 0 ),
-                    'c4' => 100 * ($C4_max-$C4_min > 0 ? ($C4_max-$row['C4']) / ($C4_max-$C4_min) : 0 ),
-                    'c5' => 100 * ($C5_max-$C5_min > 0 ? ($C5_max-$row['C5']) / ($C5_max-$C5_min) : 0 ),
-                    'c6' => 100 * ($C6_max-$C6_min > 0 ? ($C6_max-$row['C6']) / ($C6_max-$C6_min) : 0 ),
+                    'c1' => round(100 * ($C1_max-$C1_min > 0 ? ($C1_max-$row['C1']) / ($C1_max-$C1_min) : 0),2),
+                    'c2' => round(100 * ($C2_max-$C2_min > 0 ? ($C2_max-$row['C2']) / ($C2_max-$C2_min) : 0 ),2),
+                    'c3' => round(100 * ($C3_max-$C3_min > 0 ? ($C3_max-$row['C3']) / ($C3_max-$C3_min) : 0 ),2),
+                    'c4' => round(100 * ($C4_max-$C4_min > 0 ? ($C4_max-$row['C4']) / ($C4_max-$C4_min) : 0 ),2),
+                    'c5' => round(100 * ($C5_max-$C5_min > 0 ? ($C5_max-$row['C5']) / ($C5_max-$C5_min) : 0 ),2),
+                    'c6' => round(100 * ($C6_max-$C6_min > 0 ? ($C6_max-$row['C6']) / ($C6_max-$C6_min) : 0 ),2),
                 ];
             }
 
@@ -139,16 +139,17 @@ class ProsesSpkController extends Controller
                 ];
                 return Response::json($response);
             }
+
             foreach($detail as $det){
                 $hasil_fucom_smart[] = [
                     'id_pengajuan' => $det['id_pengajuan'],
                     'alternatif' => $det['alternatif'],
-                    'c1' => $det['c1'] * bobot_kriteria('c1'),
-                    'c2' => $det['c2'] * bobot_kriteria('c2'),
-                    'c3' => $det['c3'] * bobot_kriteria('c3'),
-                    'c4' => $det['c4'] * bobot_kriteria('c4'),
-                    'c5' => $det['c5'] * bobot_kriteria('c5'),
-                    'c6' => $det['c6'] * bobot_kriteria('c6')
+                    'c1' => round($det['c1'], 2) * bobot_kriteria('c1'),
+                    'c2' => round($det['c2'], 2) * bobot_kriteria('c2'),
+                    'c3' => round($det['c3'], 2) * bobot_kriteria('c3'),
+                    'c4' => round($det['c4'], 2) * bobot_kriteria('c4'),
+                    'c5' => round($det['c5'], 2) * bobot_kriteria('c5'),
+                    'c6' => round($det['c6'], 2) * bobot_kriteria('c6')
                 ];
             }
 
@@ -192,6 +193,17 @@ class ProsesSpkController extends Controller
         );
 
         return view('proses_spk.fucom_smart', $data);
+    }
+
+    public function perangkingan()
+    {
+        $data = array(
+            'nameroutes'        => $this->nameroutes,
+            'title'             => 'Data Perangkingan',
+            'breadcrumb'        => 'Perangkingan'
+        );
+
+        return view('proses_spk.perangkingan', $data);
     }
     /**
      * Store a newly created resource in storage.

@@ -18,7 +18,7 @@ return [
     'address'           => env('ADDRESS', 'Address'),
     'phone'             => env('PHONE', 'Phone'),
     'name'              => env('APP_NAME', 'Laravel'),
-
+    'unit'              => env('UNIT', 'Laravel'),
     /*
     |--------------------------------------------------------------------------
     | Application Environment

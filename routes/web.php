@@ -82,6 +82,7 @@ Route::prefix('proses-spk')->group(function() {
 	Route::match(array('GET', 'POST'),'/fucom-smart','ProsesSpkController@fucom_smart');
 	Route::match(array('GET', 'POST'),'/datatables-normalisasi','ProsesSpkController@datatables_collection_normalisasi');
 	Route::match(array('GET', 'POST'),'/datatables-fucom-smart','ProsesSpkController@datatables_collection_fucom_smart');
+	Route::match(array('GET', 'POST'),'/perangkingan','ProsesSpkController@perangkingan');
 });
 #DASHBOARD
 Route::prefix('dashboard')->group(function() {
@@ -95,32 +96,11 @@ Route::prefix('dashboard')->group(function() {
 });
 #LAPORAN
 Route::prefix('laporan')->group(function() {
-	Route::get('/pembayaran','Laporan@pembayaran');
-	Route::post('/pembayaran/print','Laporan@print_pembayaran');
+	Route::get('/pengajuan','Laporan@pengajuan');
+	Route::post('/pengajuan/print','Laporan@print_pengajuan');
 
-	Route::get('/rekapitulasi','Laporan@rekapitulasi');
-	Route::post('/rekapitulasi/print','Laporan@print_rekapitulasi');
-
-	Route::get('/tunggakan','Laporan@tunggakan');
-	Route::post('/tunggakan/print','Laporan@print_tunggakan');
-	
-	Route::get('/rkas','Laporan@rkas');
-	Route::post('/rkas/print','Laporan@print_rkas');
-
-	Route::get('/pengeluaran','Laporan@pengeluaran');
-	Route::post('/pengeluaran/print','Laporan@print_pengeluaran');
-
-	Route::get('/lpj','Laporan@lpj');
-	Route::post('/lpj/print','Laporan@print_lpj');
-
-	Route::get('/arus-kas','Laporan@arus_kas');
-	Route::post('/arus-kas/print','Laporan@print_arus_kas');
-
-	Route::get('/perubahan-modal','Laporan@perubahan_modal');
-	Route::post('/perubahan-modal/print','Laporan@print_perubahan_modal');
-
-	Route::get('/neraca','Laporan@neraca');
-	Route::post('/neraca/print','Laporan@print_neraca');
+	Route::get('/hasil-perhitungan','Laporan@hasil_perhitungan');
+	Route::post('/hasil-perhitungam/print','Laporan@print_hasil_perhitungan');
 });
 
 });

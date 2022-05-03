@@ -22,7 +22,6 @@
                     <input type="date" class="form-control" name="f[date_end]" required value="{{ @$item->date_end}}">
                 </div>
             </div>
-            
             <div class="form-group">
                 <label for="name" class="col-sm-3 control-label"></label>
                 <div class="col-md-9">

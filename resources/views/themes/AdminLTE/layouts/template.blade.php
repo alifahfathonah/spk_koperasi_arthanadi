@@ -23,8 +23,8 @@
     <!-- HEADER -->
     @include('themes.AdminLTE.partials.header')
     <!-- Left side column. contains the logo and sidebar -->
-    {{-- @include('themes.AdminLTE.partials.sidebar.'.Helpers::getJabatan()) --}}
-    @include('themes.AdminLTE.partials.sidebar.Admin')
+    @include('themes.AdminLTE.partials.sidebar.'.Helpers::getJabatan())
+    {{-- @include('themes.AdminLTE.partials.sidebar.Admin') --}}
 
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">

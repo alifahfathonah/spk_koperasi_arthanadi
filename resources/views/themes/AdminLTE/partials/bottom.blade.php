@@ -55,6 +55,14 @@
 <!-- Select2 -->
 <script src="{{ url('') }}/themes/AdminLTE-2.4.3/bower_components/select2/dist/js/select2.full.min.js"></script>
 
+<!-- FLOT CHARTS -->
+<script src="{{ url('') }}/themes/AdminLTE-2.4.3/bower_components/Flot/jquery.flot.js"></script>
+<!-- FLOT RESIZE PLUGIN - allows the chart to redraw when the window is resized -->
+<script src="{{ url('') }}/themes/AdminLTE-2.4.3/bower_components/Flot/jquery.flot.resize.js"></script>
+<!-- FLOT PIE PLUGIN - also used to draw donut charts -->
+<script src="{{ url('') }}/themes/AdminLTE-2.4.3/bower_components/Flot/jquery.flot.pie.js"></script>
+<!-- FLOT CATEGORIES PLUGIN - Used to draw bar charts -->
+<script src="{{ url('') }}/themes/AdminLTE-2.4.3/bower_components/Flot/jquery.flot.categories.js"></script>
 {{-- <script type="text/javascript" src="{{ url('') }}/themes/default/js/bootstrap-datetimepicker/bootstrap-datetimepicker.js"></script> --}}
 <script>  
   $(document).ready(function(){

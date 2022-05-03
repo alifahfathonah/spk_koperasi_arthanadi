@@ -12,10 +12,10 @@
 <body>
   <table style="border:none;">
     <tr>
-      <td width="100px" style="border:none;"><img src="{{ url('themes/login/images/logo.png')}}" alt="" style="width: 100px;text-align:center"><br></td>
+      {{-- <td width="100px" style="border:none;"><img src="{{ url('themes/login/images/logo.png')}}" alt="" style="width: 100px;text-align:center"><br></td> --}}
       <td style="border:none;">
         <h4 align="center">
-          {{config('app.app_name')}} {{config('app.area')}} <br>
+          <span style="font: 18px">{{config('app.app_alias')}}</span> <br>{{config('app.unit')}} <br>
           Alamat : {{config('app.address')}} <br>Telepon : {{config('app.phone')}}
         </h4>
       </td>
@@ -24,31 +24,29 @@
   </table>
   <hr>
     <h5 align="center">
-      {{ @$title }} <br> SMP WIDYA SUARA SUKAWATI  <br>
-      Periode : {{ $params->date_start ." s/d ". $params->date_end }}
+      <u>{{ @$title }}</u> <br>
     </h5>
     <div class="container">
         <table width="100%">
           <thead>
             <tr>
-              <th style="text-align: center!important">No</th>
-              <th>Tanggal</th>
-              <th>Kode Akun</th>
-              <th>Keterangan</th>
-              <th>Jumlah</th>
+              <th>Urutan</th>
+              <th>Alternatif</th>
+              <th>Nama Nasabah</th>
+              <th>Hasil Akhir</th>
+              <th>Kesimpulan</th>
             </tr>
           </thead>
           <tbody>
-            <?php  $no = 1;$total = 0; ?>
+            <?php  $no = 1; ?>
             @if(!$item->isEmpty()) 
               @foreach($item as $row)
-                @php $total += $row->total;  @endphp
                 <tr>
-                  <td align="center">{{ $no++ }}</td>
-                  <td>{{ date('d M Y',strtotime($row->tanggal)) }}</td>
-                  <td>{{ $row->kode_akun }}</td>
-                  <td>{{ $row->nama_akun }}</td>
-                  <td align="right">Rp. {{ number_format($row->total) }}</td>
+                  <td>Hasil Terbaik  {{ $no++ }}</td>
+                  <td>{{ $row->alternatif }}</td>
+                  <td>{{ $row->nama_nasabah }}</td>
+                  <td>{{ $row->hasil }}</td>
+                  <td>{{ $row->kesimpulan }}</td>
                 </tr>
               @endforeach
             @else
@@ -58,12 +56,8 @@
             @endif
           </tbody>
           <tfoot>
-            <tr>
-              <td align="right" colspan="4"><strong>TOTAL</strong></td>
-              <td align="right"><strong>Rp. {{ number_format($total) }}</strong></td>
-            </tr>
+           
           </tfoot>
-
         </table>
       </div>
     <p style="z-index: 100;position: absolute;bottom: 0px;float: right;font-size: 11px;"><i>Tanggal Cetak : <?php echo date('d-m-Y') ?></i></p>

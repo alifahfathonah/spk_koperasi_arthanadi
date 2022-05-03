@@ -48,9 +48,14 @@
   </div>
   <div class="form-group">
     <label class="col-lg-3 control-label">Kemampuan *</label>
-    <div class="col-lg-9">
-      <input type="text" class="form-control" name="f[kemampuan]" required id="kemampuan" value="{{ @$item->kemampuan }}" placeholder="Kemampuan">
-    </div>
+      <div class="col-lg-9">
+        <div class="input-group data_collect_wrapper">
+          <input type="number" class="form-control" name="f[kemampuan]" required id="kemampuan" value="{{ @$item->kemampuan }}" placeholder="Kemampuan" min="1">
+          <div class="input-group-btn">
+            <span class="btn btn-default btn-flat">Tahun</span>
+          </div>
+        </div>
+      </div>
   </div>
   <div class="form-group">
     <label class="col-lg-3 control-label">Pendapatan *</label>

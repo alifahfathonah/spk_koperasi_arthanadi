@@ -12,10 +12,10 @@
 <body>
   <table style="border:none;">
     <tr>
-      <td width="100px" style="border:none;"><img src="{{ url('themes/login/images/logo.png')}}" alt="" style="width: 100px;text-align:center"><br></td>
+      {{-- <td width="100px" style="border:none;"><img src="{{ url('themes/login/images/logo.png')}}" alt="" style="width: 100px;text-align:center"><br></td> --}}
       <td style="border:none;">
         <h4 align="center">
-          {{config('app.app_name')}} {{config('app.area')}} <br>
+          <span style="font: 18px">{{config('app.app_alias')}}</span> <br>{{config('app.unit')}} <br>
           Alamat : {{config('app.address')}} <br>Telepon : {{config('app.phone')}}
         </h4>
       </td>
@@ -24,48 +24,50 @@
   </table>
   <hr>
     <h5 align="center">
-      {{ @$title }} <br>
-      Periode : {{ $params->date_start ." s/d ". $params->date_end }}
+      <u>{{ @$title }}</u> <br>
+      Periode : {{ date('d-m-Y', strtotime($params->date_start)) ." s/d ". date('d-m-Y', strtotime($params->date_end)) }}
     </h5>
     <div class="container">
         <table width="100%">
           <thead>
             <tr>
               <th style="text-align: center!important">No</th>
-              <th>Tanggal</th>
-              <th>NIS</th>
-              <th>Nama Siswa</th>
-              <th>Kelas</th>
-              <th>Jenis Kelamin</th>
-              <th>Jumlah</th>
+              <th>ID Pengajuan</th>
+              <th>Tgl Pengajuan</th>
+              <th>Nama Nasabah</th>
+              <th>Jaminan</th>
+              <th>Karakter</th>
+              <th>Kemampuan</th>
+              <th>Pendapatan</th>
+              <th>Pengeluaran</th>
+              <th>Kondisi Hutang</th>
             </tr>
           </thead>
           <tbody>
-            <?php  $no = 1;$total = 0; ?>
+            <?php  $no = 1; ?>
             @if(!$item->isEmpty()) 
               @foreach($item as $row)
-                @php $total += $row->nominal; @endphp
                 <tr>
                   <td align="center">{{ $no++ }}</td>
-                  <td>{{ date('d M Y',strtotime($row->tgl_pembayaran)) }}</td>
-                  <td>{{ $row->nis }}</td>
-                  <td>{{ $row->nama }}</td>
-                  <td>{{ $row->kelas }}</td>
-                  <td>{{ $row->jenis_kelamin }}</td>
-                  <td>Rp. {{ number_format($row->nominal, 2) }}</td>
+                  <td>{{ $row->id_pengajuan }}</td>
+                  <td>{{ date('d M Y',strtotime($row->tgl_pengajuan)) }}</td>
+                  <td>{{ $row->nama_nasabah }}</td>
+                  <td>{{ $row->C1 }}</td>
+                  <td>{{ $row->C2 }}</td>
+                  <td>{{ $row->kemampuan }}</td>
+                  <td>{{ $row->pendapatan }}</td>
+                  <td>{{ $row->pengeluaran }}</td>
+                  <td>{{ $row->C6 }}</td>
                 </tr>
               @endforeach
             @else
               <tr>
-                <td colspan="7" align="center">Tidak terdapat data</td>
+                <td colspan="10" align="center">Tidak terdapat data</td>
               </tr>
             @endif
           </tbody>
           <tfoot>
-            <tr>
-              <td colspan="6" align="right"><b>TOTAL</b></td>
-              <td><b>Rp. {{ number_format($total, 2) }}</b></td>
-            </tr>
+           
           </tfoot>
         </table>
       </div>

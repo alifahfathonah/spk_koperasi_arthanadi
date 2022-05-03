@@ -25,13 +25,16 @@ CREATE TABLE `tb_alternatif` (
   `kode_alternatif` varchar(11) DEFAULT NULL,
   `id_nasabah` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4;
+) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `tb_alternatif` */
 
 insert  into `tb_alternatif`(`id`,`kode_alternatif`,`id_nasabah`) values 
 (1,'A1',1),
-(2,'A2',2);
+(2,'A2',2),
+(3,'A3',3),
+(4,'A4',5),
+(5,'A5',4);
 
 /*Table structure for table `tb_bobot_kriteria` */
 
@@ -92,13 +95,9 @@ CREATE TABLE `tb_hasil` (
   `kesimpulan` varchar(100) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4;
+) ENGINE=MyISAM AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `tb_hasil` */
-
-insert  into `tb_hasil`(`id`,`id_pengajuan`,`alternatif`,`c1`,`c2`,`c3`,`c4`,`c5`,`c6`,`hasil`,`kesimpulan`,`created_at`) values 
-(12,'PGJ000002','A2','22.54','0','20.95','20.95','15.66','0','80.09','Layak','2022-05-03 10:07:42'),
-(11,'PGJ000001','A1','0','17.66','0','0','0','13.02','30.68','Tidak Layak','2022-05-03 10:07:42');
 
 /*Table structure for table `tb_hasil_normalisasi` */
 
@@ -115,7 +114,7 @@ CREATE TABLE `tb_hasil_normalisasi` (
   `c5` float DEFAULT NULL,
   `c6` float DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=45 DEFAULT CHARSET=utf8mb4;
+) ENGINE=MyISAM AUTO_INCREMENT=53 DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `tb_hasil_normalisasi` */
 
@@ -158,13 +157,16 @@ CREATE TABLE `tb_nasabah` (
   `jenis_kelamin` varchar(20) DEFAULT NULL,
   `agama` varchar(20) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4;
+) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `tb_nasabah` */
 
 insert  into `tb_nasabah`(`id`,`id_nasabah`,`nama_nasabah`,`alamat_nasabah`,`telepon`,`no_ktp`,`jenis_kelamin`,`agama`) values 
 (1,'NB00001','I Wayan Jana Antara','Denpasar Timur','081999897666','01239131231222','L','Hindu'),
-(2,'NB00002','I Wayan Jana','Denpasar Timur','081999897565','01239131231223','L','Hindu');
+(2,'NB00002','I Wayan Jana','Denpasar Timur','081999897565','01239131231223','L','Hindu'),
+(3,'NB00003','Ni Ketut Surati','Denpasar, Timur','081999876222','01239131231444','P','Hindu'),
+(4,'NB00004','I Wayan Subrata','Gianyar','081999897123','01239131231223','L','Hindu'),
+(5,'NB00005','Ahmad Saifulah','Jombang, Jawa Timur','081999891212','01239131231211','L','Muslim');
 
 /*Table structure for table `tb_pengajuan` */
 
@@ -183,13 +185,15 @@ CREATE TABLE `tb_pengajuan` (
   `kondisi_hutang` varchar(100) DEFAULT NULL,
   `sudah_proses` tinyint(1) DEFAULT 0,
   PRIMARY KEY (`id`,`id_pengajuan`)
-) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4;
+) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `tb_pengajuan` */
 
 insert  into `tb_pengajuan`(`id`,`id_pengajuan`,`id_alternatif`,`tgl_pengajuan`,`jaminan`,`karakter`,`kemampuan`,`pendapatan`,`pengeluaran`,`kondisi_hutang`,`sudah_proses`) values 
-(1,'PGJ000001',1,'2022-04-17','1','7','5','5','4','9',1),
-(2,'PGJ000002',2,'2022-04-17','3','6','4','2','3','8',1);
+(1,'PGJ000001',1,'2022-04-17','1','7','5','5','4','9',0),
+(2,'PGJ000002',2,'2022-04-17','3','6','4','2','3','8',0),
+(3,'PGJ000003',3,'2022-05-03','1','7','10','8.5','2.5','9',0),
+(4,'PGJ000004',4,'2022-05-03','3','7','5','5.5','1.5','8',0);
 
 /*Table structure for table `tb_pengguna` */
 
@@ -203,12 +207,13 @@ CREATE TABLE `tb_pengguna` (
   `password` varchar(100) DEFAULT NULL,
   `jabatan` varchar(20) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `tb_pengguna` */
 
 insert  into `tb_pengguna`(`id`,`id_pengguna`,`nama_pengguna`,`username`,`password`,`jabatan`) values 
-(1,'U001','Wayan Admin','admin','$2y$10$JSk.ma9W0H3h0QpdwYc6wuaNN.K0FLxxmD3yMIWPhW9uUKvB3x8qS','Admin');
+(1,'U001','Wayan Admin','admin','$2y$10$JSk.ma9W0H3h0QpdwYc6wuaNN.K0FLxxmD3yMIWPhW9uUKvB3x8qS','Admin'),
+(2,'U002','Kadek Manager','manager','$2y$10$4.J.Dotnoqr9GceIt54l7u2x4Y8kAFzUHEUvngbSmIGAjYT7TnGP.','Manager');
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
