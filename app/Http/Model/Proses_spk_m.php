@@ -43,7 +43,7 @@ class Proses_spk_m extends Model
 					'a.kemampuan as C5',
 					'f.bobot_kriteria as C6'
 				)
-				->where(['a.sudah_proses' => 0]);
+				->where(['a.sudah_proses' => 0, 'a.aktif' => 1]);
 				
 		return $query->get();
     }

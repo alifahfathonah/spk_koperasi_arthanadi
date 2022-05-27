@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Model\Bobot_kriteria_m;
+use App\Http\Model\Group_kriteria_m;
 
 if (!function_exists('format_date_ind')){
     function format_date_ind($date)
@@ -30,10 +31,10 @@ if (!function_exists('get_user')){
     }
 }
 if (!function_exists('bobot_kriteria')){
-    function bobot_kriteria( $params )
+    function bobot_kriteria( $kode_kriteria )
     {
-        $model_config = New Bobot_kriteria_m;
-        $query = $model_config->get_one($params);
-        return $query->value;
+        $model_config = New Group_kriteria_m;
+        $query = $model_config->get_by(['kode_kriteria' => $kode_kriteria ]);
+        return $query->bobot;
     }
 }

@@ -70,9 +70,9 @@
         mode      : 'categories',
         tickLength: 0
       }
-    })
+    });
 
-  })
+  });
     /* END BAR CHART */
 
     // $(function () {

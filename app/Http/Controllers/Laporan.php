@@ -77,7 +77,7 @@ class Laporan extends Controller
              $data = array(
                  'item'              => (object) $item,
                  'title'             => 'Laporan Hasil Alternatif Keputusan',
-                 'url_print'         => 'laporan/hasil-perhitungam/print'
+                 'url_print'         => 'laporan/hasil-perhitungan/print'
              );
  
              return view('laporan.form.hasil_perhitungan', $data);
@@ -86,6 +86,7 @@ class Laporan extends Controller
  
      public function print_hasil_perhitungan(Request $request)
      {
+         $params = $request->input('f');
          $query = DB::table('tb_hasil as a')
                 ->join('tb_pengajuan as b','a.id_pengajuan','=','b.id_pengajuan')
                 ->join('tb_alternatif as c','b.id_alternatif','=','c.id')
@@ -95,11 +96,17 @@ class Laporan extends Controller
                     'b.tgl_pengajuan',
                     'd.nama_nasabah'
                 )
-                ->orderBy('a.hasil', 'desc')
-                ->get();
-         
+                ->orderBy('a.hasil', 'desc');
+
+            if($params['status'] == 1){
+                $query->where('a.kesimpulan','Layak');
+            }
+            if($params['status'] == 2){
+                $query->where('a.kesimpulan','Tidak Layak');
+            }
+
          $data = [
-             'item'         => $query,
+             'item'         => $query->get(),
              'title'        => 'LAPORAN HASIL ALTERNATIF KEPUTUSAN',
          ];
  

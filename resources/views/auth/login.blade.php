@@ -6,7 +6,7 @@
     <p><h3 align="center">{{ config('app.app_alias') }}</h3></p>
     <h4 align="center" style="padding: 0px 10px 0px 10px"><small>{{ config('app.app_name') }}</small></h4>
       <div class="login-logo">
-        {{-- <img src="{{url('themes/login/images/logo.png')}}" width="120" style="margin-top: 10px"> --}}
+        <img src="{{url('themes/login/images/logo.png')}}" width="120" style="margin-top: 10px">
       </div>
         <div class="login-box-body">  
             <form action="{{url('/auth')}}" method="post">

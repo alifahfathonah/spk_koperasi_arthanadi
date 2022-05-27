@@ -18,7 +18,7 @@ class Hasil_fucom_smart_m extends Model
 
 	}
 
-    function get_all()
+    function get_all($params)
     {
 		$query = DB::table('tb_hasil as a')
 				->join('tb_pengajuan as b','a.id_pengajuan','=','b.id_pengajuan')
@@ -29,7 +29,12 @@ class Hasil_fucom_smart_m extends Model
 					'b.tgl_pengajuan',
 					'd.nama_nasabah'
 				)
+				->where('c.aktif', 1)
 				->orderBy('b.tgl_pengajuan', 'desc');
+
+		if(!empty($params['date_start']) && !empty($params['date_end'])){
+			$query->whereBetween('b.tgl_pengajuan',[$params['date_start'],$params['date_end']]);
+		}
 
 		return $query->get();
     }

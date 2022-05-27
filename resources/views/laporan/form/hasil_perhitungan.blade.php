@@ -11,8 +11,19 @@
             <form  method="POST" action="{{ url(@$url_print) }}" class="form-horizontal">
             {!! csrf_field() !!}
             <div class="form-group">
-                <div class="col-md-12">
-                    <button type="sumbit" formtarget="_blank" class="btn btn-success btn-block" data-dismiss="modal"><i class="fa fa-print" aria-hidden="true"></i> Cetak </button>
+              <label for="name" class="col-sm-3 control-label">Status</label>
+              <div class="col-md-9">
+                <select name="f[status]" id="" class="form-control">
+                  <option value="XX">Semua</option>
+                  <option value="1">Diterima</option>
+                  <option value="2">Tidak Diterima</option>
+                </select>
+              </div>
+          </div>
+            <div class="form-group">
+                <label for="name" class="col-sm-3 control-label"></label>
+                <div class="col-md-9">
+                    <button type="sumbit" formtarget="_blank" class="btn btn-success btn-block" data-dismiss="modal"><i class="fa fa-print" aria-hidden="true"></i> Preview </button>
                 </div>
             </div>
         </form>

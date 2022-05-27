@@ -92,12 +92,12 @@ class ProsesSpkController extends Controller
                 $data_perhitungan[] = [
                     'id_pengajuan' => $row['id_pengajuan'],
                     'alternatif' => $row['kode_alternatif'],
-                    'c1' => round(100 * ($C1_max-$C1_min > 0 ? ($C1_max-$row['C1']) / ($C1_max-$C1_min) : 0),2),
-                    'c2' => round(100 * ($C2_max-$C2_min > 0 ? ($C2_max-$row['C2']) / ($C2_max-$C2_min) : 0 ),2),
-                    'c3' => round(100 * ($C3_max-$C3_min > 0 ? ($C3_max-$row['C3']) / ($C3_max-$C3_min) : 0 ),2),
-                    'c4' => round(100 * ($C4_max-$C4_min > 0 ? ($C4_max-$row['C4']) / ($C4_max-$C4_min) : 0 ),2),
-                    'c5' => round(100 * ($C5_max-$C5_min > 0 ? ($C5_max-$row['C5']) / ($C5_max-$C5_min) : 0 ),2),
-                    'c6' => round(100 * ($C6_max-$C6_min > 0 ? ($C6_max-$row['C6']) / ($C6_max-$C6_min) : 0 ),2),
+                    'c1' => round(100 * ($C1_max-$C1_min > 0 ? ($row['C1']-$C1_min) / ($C1_max-$C1_min) : 0),2),
+                    'c2' => round(100 * ($C2_max-$C2_min > 0 ? ($row['C2']-$C2_min) / ($C2_max-$C2_min) : 0 ),2),
+                    'c3' => round(100 * ($C3_max-$C3_min > 0 ? ($row['C3']-$C3_min) / ($C3_max-$C3_min) : 0 ),2),
+                    'c4' => round(100 * ($C4_max-$row['C4'] > 0 ? ($C4_max-$row['C4']) / ($C4_max-$C4_min) : 0 ),2), #pengeluaran
+                    'c5' => round(100 * ($C5_max-$C5_min > 0 ? ($row['C5']-$C5_min) / ($C5_max-$C5_min) : 0 ),2),
+                    'c6' => round(100 * ($C6_max-$C6_min > 0 ? ($row['C6']-$C6_min) / ($C6_max-$C6_min) : 0 ),2),
                 ];
             }
 
@@ -144,17 +144,17 @@ class ProsesSpkController extends Controller
                 $hasil_fucom_smart[] = [
                     'id_pengajuan' => $det['id_pengajuan'],
                     'alternatif' => $det['alternatif'],
-                    'c1' => round($det['c1'], 2) * bobot_kriteria('c1'),
-                    'c2' => round($det['c2'], 2) * bobot_kriteria('c2'),
-                    'c3' => round($det['c3'], 2) * bobot_kriteria('c3'),
-                    'c4' => round($det['c4'], 2) * bobot_kriteria('c4'),
-                    'c5' => round($det['c5'], 2) * bobot_kriteria('c5'),
-                    'c6' => round($det['c6'], 2) * bobot_kriteria('c6')
+                    'c1' => round($det['c1'], 2) * bobot_kriteria('C1'),
+                    'c2' => round($det['c2'], 2) * bobot_kriteria('C2'),
+                    'c3' => round($det['c3'], 2) * bobot_kriteria('C3'),
+                    'c4' => round($det['c4'], 2) * bobot_kriteria('C4'),
+                    'c5' => round($det['c5'], 2) * bobot_kriteria('C5'),
+                    'c6' => round($det['c6'], 2) * bobot_kriteria('C6')
                 ];
             }
 
             foreach($hasil_fucom_smart as $key){
-                Pengajuan_m::where('id_pengajuan', $key['id_pengajuan'])->update(['sudah_proses' => 1]);
+                Pengajuan_m::where(['id_pengajuan' => $key['id_pengajuan'], 'aktif' => 1])->update(['sudah_proses' => 1]);
                 Hasil_normalisasi_m::query()->delete();
                 $hitung_hasil = round($key['c1'] + $key['c2'] + $key['c3'] + $key['c4'] + $key['c5'] + $key['c6'], 2);
 
@@ -293,6 +293,22 @@ class ProsesSpkController extends Controller
         return view('alternatif.view', $data);
     }
 
+    public function reset_hasil()
+    {
+        Hasil_normalisasi_m::query()->delete();
+        Hasil_fucom_smart_m::query()->delete();
+        Pengajuan_m::query()->update(['sudah_proses' => 0]);
+        
+        $response = [
+            'message'   => 'Berhasil melakukan reset hasil perhitungan!',
+            'status'    => 'success',
+            'code'      => 200,
+        ];
+        return Response::json($response);
+
+    }
+
+
     public function datatables_collection()
     {
         $data = $this->model->get_all();
@@ -307,7 +323,8 @@ class ProsesSpkController extends Controller
 
     public function datatables_collection_fucom_smart()
     {
-        $data = $this->model_hasil->get_all();
+        $params = request()->all();
+        $data = $this->model_hasil->get_all($params);
         return Datatables::of($data)->make(true);
     }
 

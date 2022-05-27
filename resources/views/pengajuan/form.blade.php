@@ -1,7 +1,7 @@
 <form  method="POST" action="{{ url($submit_url) }}" class="form-horizontal" name="form_crud">
   {{ csrf_field() }}
   <div class="form-group">
-    <label class="col-lg-3 control-label">ID Pengajuan *</label>
+    <label class="col-lg-3 control-label">ID Alternatif *</label>
     <div class="col-lg-9">
       <input type="text" class="form-control" name="f[id_pengajuan]" id="id_pengajuan" value="{{ @$item->id_pengajuan }}" placeholder="ID Pengajuan" required="" readonly>
     </div>
@@ -19,7 +19,7 @@
     </div>
   </div>
   <div class="form-group">
-    <label class="col-lg-3 control-label">Tanggal Pengajuan *</label>
+    <label class="col-lg-3 control-label">Tanggal Alternatif *</label>
     <div class="col-lg-9">
       <input type="date" name="f[tgl_pengajuan]" id="tgl_pengajuan" class="form-control" placeholder="Tanggal Pengajuan" value="{{ @$item->tgl_pengajuan }}">
     </div>

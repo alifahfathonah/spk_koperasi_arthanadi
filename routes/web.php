@@ -30,6 +30,7 @@ Route::prefix('user')->group(function() {
 	Route::match(array('GET', 'POST'),'/create','UserController@create');
 	Route::match(array('GET', 'POST'),'/edit/{id}','UserController@edit');
 	Route::match(array('GET', 'POST'),'/view/{id}','UserController@view');
+	Route::match(array('GET', 'POST'),'/delete/{id}','UserController@delete');
 });
 #NASABAH
 Route::prefix('nasabah')->group(function() {
@@ -38,6 +39,7 @@ Route::prefix('nasabah')->group(function() {
 	Route::match(array('GET', 'POST'),'/create','NasabahController@create');
 	Route::match(array('GET', 'POST'),'/edit/{id}','NasabahController@edit');
 	Route::match(array('GET', 'POST'),'/view/{id}','NasabahController@view');
+	Route::match(array('GET', 'POST'),'/delete/{id}','NasabahController@delete');
 });
 #KRITERIA
 Route::prefix('kriteria')->group(function() {
@@ -46,6 +48,7 @@ Route::prefix('kriteria')->group(function() {
 	Route::match(array('GET', 'POST'),'/create','KriteriaController@create');
 	Route::match(array('GET', 'POST'),'/edit/{id}','KriteriaController@edit');
 	Route::match(array('GET', 'POST'),'/view/{id}','KriteriaController@view');
+	Route::match(array('GET', 'POST'),'/delete/{id}','KriteriaController@delete');
 });
 #GROUP KRITERIA
 Route::prefix('group-kriteria')->group(function() {
@@ -63,6 +66,7 @@ Route::prefix('pengajuan')->group(function() {
 	Route::match(array('GET', 'POST'),'/edit/{id}','PengajuanController@edit');
 	Route::match(array('GET', 'POST'),'/view/{id}','PengajuanController@view');
 	Route::match(array('GET', 'POST'),'/lookup_alternatif','PengajuanController@datatables_lookup_alternatif');
+	Route::match(array('GET', 'POST'),'/delete/{id}','PengajuanController@delete');
 });
 #ALTERNATIF
 Route::prefix('alternatif')->group(function() {
@@ -71,8 +75,9 @@ Route::prefix('alternatif')->group(function() {
 	Route::match(array('GET', 'POST'),'/create','AlternatifController@create');
 	Route::match(array('GET', 'POST'),'/edit/{id}','AlternatifController@edit');
 	Route::match(array('GET', 'POST'),'/view/{id}','AlternatifController@view');
+	Route::match(array('GET', 'POST'),'/delete/{id}','AlternatifController@delete');
 });
-#ALTERNATIF
+#PROSES SPK
 Route::prefix('proses-spk')->group(function() {
     Route::get('/', 'ProsesSpkController@index');
 	Route::match(array('GET', 'POST'),'/datatables','ProsesSpkController@datatables_collection');
@@ -83,6 +88,7 @@ Route::prefix('proses-spk')->group(function() {
 	Route::match(array('GET', 'POST'),'/datatables-normalisasi','ProsesSpkController@datatables_collection_normalisasi');
 	Route::match(array('GET', 'POST'),'/datatables-fucom-smart','ProsesSpkController@datatables_collection_fucom_smart');
 	Route::match(array('GET', 'POST'),'/perangkingan','ProsesSpkController@perangkingan');
+	Route::match(array('GET', 'POST'),'/reset-hasil','ProsesSpkController@reset_hasil');
 });
 #DASHBOARD
 Route::prefix('dashboard')->group(function() {
@@ -100,7 +106,7 @@ Route::prefix('laporan')->group(function() {
 	Route::post('/pengajuan/print','Laporan@print_pengajuan');
 
 	Route::get('/hasil-perhitungan','Laporan@hasil_perhitungan');
-	Route::post('/hasil-perhitungam/print','Laporan@print_hasil_perhitungan');
+	Route::post('/hasil-perhitungan/print','Laporan@print_hasil_perhitungan');
 });
 
 });

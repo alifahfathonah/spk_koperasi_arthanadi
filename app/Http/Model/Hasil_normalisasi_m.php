@@ -25,7 +25,7 @@ class Hasil_normalisasi_m extends Model
 
 	function get_normalisasi()
     {
-		return DB::table('tb_hasil_normalisasi')->get();
+		return self::get();
     }
 
 

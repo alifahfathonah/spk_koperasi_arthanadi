@@ -27,7 +27,7 @@
               <tr>
                 <th class="no-sort">No</th>
                 <th>Kode Kriteria</th>
-                <th>Nama Kriteria</th>
+                <th>Keterangan</th>
                 <th>Bobot</th>
                 <th class="no-sort">Aksi</th>
               </tr>
@@ -99,6 +99,7 @@
                                 render: function ( val, type, row ){
                                     var buttons = '<div class="btn-group" role="group">';
                                       buttons += '<a class=\"btn btn-info btn-xs modalEdit\"><i class=\"fa fa-pencil\"></i> {{ __('global.label_edit') }}</a>';
+                                      buttons += '<a class=\"btn btn-danger btn-xs modalHapus\"><i class=\"fa fa-trash\"></i> Hapus</a>';
                                       buttons += "</div>";
                                     return buttons
                                   }
@@ -115,6 +116,25 @@
                                 title : "<?= @$headerModalEdit ?>",
                             }
                             ajax_modal.show(_prop);											
+                        })
+
+                        $( row ).on( "click", ".modalHapus",  function(e){
+                            e.preventDefault();
+                            if( confirm( "Apakah anda yakin menghapus data ini?" ) ){
+                              $.get("{{ url('kriteria/delete') }}/" + data.id, function(response, status, xhr) {
+                              if( response.status == "error"){
+                                  $.alert_warning(response.message);
+                                      return false
+                                  }
+                                  $.alert_success(response.message);
+                                      setTimeout(function(){
+                                        location.reload();   
+                                      }, 500);  
+                              }).catch(error => {
+                                    $.alert_error(error);
+                                    return false
+                              });
+                            }										
                         })
 
                       }

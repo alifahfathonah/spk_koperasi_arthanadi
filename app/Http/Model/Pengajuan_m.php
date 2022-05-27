@@ -44,7 +44,8 @@ class Pengajuan_m extends Model
 					'c.nama_kriteria as C1',
 					'd.nama_kriteria as C2',
 					'e.nama_kriteria as C6'
-				);
+				)
+				->where('a.aktif', 1);
 				
 		return $query->get();
     }
@@ -59,6 +60,7 @@ class Pengajuan_m extends Model
 					'b.nama_nasabah',
 					'b.alamat_nasabah'
 				)
+				->where('a.aktif', 1)
 				->get();
 
 				return $query;

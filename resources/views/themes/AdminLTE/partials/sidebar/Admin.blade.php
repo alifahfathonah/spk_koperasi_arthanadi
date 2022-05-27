@@ -28,12 +28,12 @@
               </span>
             </a>
             <ul class="treeview-menu">
-              <li class="{{ Request::is('group-kriteria') ? 'active':null}}"><a href="{{ url('group-kriteria') }}"><i class="fa fa-circle-o-notch"></i> Group Kriteria</a></li>
-              <li class="{{ Request::is('kriteria') ? 'active':null}}"><a href="{{ url('kriteria') }}"><i class="fa fa-circle-o-notch"></i> Kriteria</a></li>
+              <li class="{{ Request::is('group-kriteria') ? 'active':null}}"><a href="{{ url('group-kriteria') }}"><i class="fa fa-circle-o-notch"></i> Kriteria</a></li>
+              <li class="{{ Request::is('kriteria') ? 'active':null}}"><a href="{{ url('kriteria') }}"><i class="fa fa-circle-o-notch"></i> Bobot Kriteria</a></li>
             </ul>
           </li>
-            <li class="{{ Request::is('alternatif') ? 'active':null}}"><a href="{{ url('alternatif') }}"><i class="fa fa-id-card" aria-hidden="true"></i> <span>Data Alternatif</span></a></li>
-            <li class="{{ Request::is('pengajuan') ? 'active':null}}"><a href="{{ url('pengajuan') }}"><i class="fa fa-balance-scale" aria-hidden="true"></i> <span>Data Pengajuan</span></a></li>
+            <li class="{{ Request::is('alternatif') ? 'active':null}}"><a href="{{ url('alternatif') }}"><i class="fa fa-id-card" aria-hidden="true"></i> <span>Data Pengajuan</span></a></li>
+            <li class="{{ Request::is('pengajuan') ? 'active':null}}"><a href="{{ url('pengajuan') }}"><i class="fa fa-balance-scale" aria-hidden="true"></i> <span>Data Alternatif</span></a></li>
             <li class="treeview {{ Request::is('proses-spk') ? 'active':null}} {{ Request::is('proses-spk/fucom-smart') ? 'active':null}} {{ Request::is('proses-spk/perangkingan') ? 'active':null}}">
             <a href="#">
               <i class="fa fa-handshake-o" aria-hidden="true"></i>
@@ -45,6 +45,7 @@
             <ul class="treeview-menu">
               <li class="{{ Request::is('proses-spk') ? 'active':null}}"><a href="{{ url('proses-spk') }}"><i class="fa fa-circle-o-notch"></i> Proses Perhitungan</a></li>
               <li class="{{ Request::is('proses-spk/fucom-smart') ? 'active':null}}"><a href="{{ url('proses-spk/fucom-smart') }}"><i class="fa fa-circle-o-notch"></i> Hasil Perhitungan</a></li>
+              <li class=""><a href="javascript:void(0)" id="reset_hasil"><i class="fa fa-circle-o-notch" aria-hidden="true"></i> <span>Hapus Hasil Perhitungan</span></a></li>
             </ul>
           </li>
           <li class="treeview {{ Request::is('laporan/pengajuan') ? 'active':null}} {{ Request::is('laporan/hasil-perhitungan') ? 'active':null}}">
@@ -63,3 +64,26 @@
         </ul>
     </section>
   </aside>
+
+  <script>
+    $('#reset_hasil').on('click',function(e) {
+    e.preventDefault();
+    if(!confirm("Data hasil perhitungan sebelumnya akan dihapus, apakah anda yakin?")) {
+      return false;
+    }
+
+    $.get("{{ url('proses-spk/reset-hasil') }}", function(response, status, xhr) {
+        if( response.status == "error"){
+            $.alert_warning(response.message);
+                return false
+            }
+            $.alert_success(response.message);
+            setTimeout(function(){
+              location.reload();   
+            }, 500);  
+        }).catch(error => {
+              $.alert_error(error);
+              return false
+        });
+  });
+  </script>

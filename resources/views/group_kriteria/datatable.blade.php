@@ -13,9 +13,9 @@
       <div class="box-header with-border">
         <h3 class="box-title">{{ @$title }}</h3>
         <div class="box-tools pull-right">
-            <div class="btn-group">
+            {{-- <div class="btn-group">
               <button class="btn btn-success btn-sm" id="modalCreate"><i class="fa fa-plus" aria-hidden="true"></i> {{ __('global.label_create') }}</button>
-            </div>
+            </div> --}}
 
           </button>
         </div>
@@ -27,8 +27,9 @@
               <tr>
                 <th class="no-sort">No</th>
                 <th>Kode Kriteria</th>
-                <th>Nama Kriteria</th>
+                <th>Keterangan</th>
                 <th>Jenis Kriteria</th>
+                <th>Bobot</th>
                 <th class="no-sort">Aksi</th>
               </tr>
             </thead>
@@ -89,6 +90,12 @@
                           },
                           { 
                                 data: "jenis_kriteria", 
+                                render: function ( val, type, row ){
+                                    return val
+                                  }
+                          },
+                          { 
+                                data: "bobot", 
                                 render: function ( val, type, row ){
                                     return val
                                   }

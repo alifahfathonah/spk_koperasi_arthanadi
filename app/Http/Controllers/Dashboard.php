@@ -20,11 +20,20 @@ class Dashboard extends Controller
      */
     public function index()
     {
-        $query = DB::table('tb_hasil')->get();
+        $query = DB::table('tb_hasil as a')
+                ->join('tb_alternatif as b','a.alternatif','=','b.kode_alternatif')
+                ->join('tb_nasabah as c','b.id_nasabah','=','c.id')
+                ->where([
+                    'b.aktif' => 1,
+                    'c.aktif' => 1
+                ])
+                ->select('a.*','c.nama_nasabah')
+                ->get();
+
         foreach($query as $data)
         {
             $array[] = [
-                $data->alternatif, 
+                $data->nama_nasabah, 
                 $data->hasil
             ];
         }

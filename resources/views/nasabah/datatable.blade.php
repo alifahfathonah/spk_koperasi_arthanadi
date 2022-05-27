@@ -122,11 +122,12 @@
                           { 
                                 data: "id",
                                 className: "text-center",
-                                width: '120px',
+                                width: '180px',
                                 render: function ( val, type, row ){
                                     var buttons = '<div class="btn-group" role="group">';
                                       buttons += '<a class=\"btn btn-info btn-xs modalEdit\"><i class=\"fa fa-pencil\"></i> {{ __('global.label_edit') }}</a>';
                                       buttons += '<a class=\"btn btn-success btn-xs modalDetail\"><i class=\"fa fa-file-text-o\"></i> {{ __('global.label_detail') }}</a>';
+                                      buttons += '<a class=\"btn btn-danger btn-xs modalHapus\"><i class=\"fa fa-trash\"></i> Hapus</a>';
                                       buttons += "</div>";
                                     return buttons
                                   }
@@ -144,6 +145,26 @@
                             }
                             ajax_modal.show(_prop);											
                         })
+
+                        $( row ).on( "click", ".modalHapus",  function(e){
+                            e.preventDefault();
+                            if( confirm( "Apakah anda yakin menghapus data ini?" ) ){
+                              $.get("{{ url('nasabah/delete') }}/" + data.id, function(response, status, xhr) {
+                              if( response.status == "error"){
+                                  $.alert_warning(response.message);
+                                      return false
+                                  }
+                                  $.alert_success(response.message);
+                                      setTimeout(function(){
+                                        location.reload();   
+                                      }, 500);  
+                              }).catch(error => {
+                                    $.alert_error(error);
+                                    return false
+                              });
+                            }										
+                        })
+
                         $( row ).on( "click", ".modalDetail",  function(e){
                             e.preventDefault();
                             var id = data.id;

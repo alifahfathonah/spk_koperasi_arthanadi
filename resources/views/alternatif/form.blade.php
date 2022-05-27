@@ -1,7 +1,7 @@
 <form  method="POST" action="{{ url($submit_url) }}" class="form-horizontal" name="form_crud">
   {{ csrf_field() }}
   <div class="form-group">
-    <label class="col-lg-3 control-label">Kode Alternatif *</label>
+    <label class="col-lg-3 control-label">Kode Pengajuan *</label>
     <div class="col-lg-9">
       <input type="text" class="form-control" name="f[kode_alternatif]" id="kode_alternatif" value="{{ @$item->kode_alternatif }}" placeholder="Kode Alternatif" required="" readonly>
     </div>

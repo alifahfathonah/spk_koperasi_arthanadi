@@ -7,7 +7,7 @@
     </div>
   </div>
   <div class="form-group">
-      <label class="col-lg-3 control-label">Nama Kriteria *</label>
+      <label class="col-lg-3 control-label">Keterangan *</label>
       <div class="col-lg-9">
         <input type="text" class="form-control" name="f[nama_kriteria]" id="nama_kriteria" value="{{ @$item->nama_kriteria }}" placeholder="Nama Kriteria" required="">
       </div>
@@ -18,6 +18,12 @@
         <input type="text" class="form-control" name="f[jenis_kriteria]" id="jenis_kriteria" value="{{ @$item->jenis_kriteria }}" placeholder="Bobot Kriteria" required="">
       </div>
   </div>
+  <div class="form-group">
+    <label class="col-lg-3 control-label">Bobot *</label>
+    <div class="col-lg-9">
+      <input type="text" class="form-control" name="f[bobot]" id="bobot" value="{{ @$item->bobot }}" placeholder="Bobot" required="">
+    </div>
+</div>
   <div class="form-group">
       <div class="col-lg-offset-3 col-lg-9">
         <button type="button" class="btn btn-danger" data-dismiss="modal">{{ __('global.label_close') }}</button>
@@ -39,6 +45,7 @@
           'kode_kriteria' : $("#kode_kriteria").val(),
           'nama_kriteria' : $("#nama_kriteria").val(),
           'jenis_kriteria' : $("#jenis_kriteria").val(),
+          'bobot' : $("#bobot").val(),
         }
      data_post = {
           "f" : data,

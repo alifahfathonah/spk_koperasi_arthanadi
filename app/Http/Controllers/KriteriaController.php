@@ -30,10 +30,10 @@ class KriteriaController extends Controller
    {
             $data = array(
                 'nameroutes'        => $this->nameroutes,
-                'title'             => 'Data Kriteria',
-                'breadcrumb'        => 'List Data Kriteria',
-                'headerModalTambah' => 'TAMBAH DATA KRITERIA',
-                'headerModalEdit'   => 'UBAH DATA KRITERIA',
+                'title'             => 'Data Bobot Kriteria',
+                'breadcrumb'        => 'List Data Bobot Kriteria',
+                'headerModalTambah' => 'TAMBAH DATA BOBOT KRITERIA',
+                'headerModalEdit'   => 'UBAH DATA BOBOT KRITERIA',
                 'urlDatatables'     => 'kriteria/datatables',
                 'idDatatables'      => 'dt_kriteria'
             );
@@ -74,7 +74,7 @@ class KriteriaController extends Controller
                 DB::commit();
     
                 $response = [
-                    "message" => 'Data kriteria berhasil dibuat',
+                    "message" => 'Data bobot kriteria berhasil dibuat',
                     'status' => 'success',
                     'code' => 200,
                 ];
@@ -152,7 +152,7 @@ class KriteriaController extends Controller
                 DB::commit();
 
                 $response = [
-                    "message" => 'Data kriteria berhasil diperbarui',
+                    "message" => 'Data bobot kriteria berhasil diperbarui',
                     'status' => 'success',
                     'code' => 200,
                 ];
@@ -171,6 +171,32 @@ class KriteriaController extends Controller
         
         return view('kriteria.form', $data);
     }
+    
+    public function delete($id)
+    {
+        DB::beginTransaction();
+        try {
+            $this->model->update_data(['aktif' => 0], $id);
+            DB::commit();
+
+            $response = [
+                "message" => 'Data bobot kriteria berhasil dihapus',
+                'status' => 'success',
+                'code' => 200,
+            ];
+       
+        } catch (\Exception $e) {
+            DB::rollback();
+            $response = [
+                "message" => $e->getMessage(),
+                'status' => 'error',
+                'code' => 500,
+                
+            ];
+        }
+        return Response::json($response); 
+    }
+
 
     public function datatables_collection()
     {

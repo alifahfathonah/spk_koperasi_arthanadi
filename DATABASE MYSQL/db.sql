@@ -1,6 +1,6 @@
 /*
 SQLyog Community v13.1.5  (64 bit)
-MySQL - 10.4.11-MariaDB : Database - spk_kredit_fucom_smart
+MySQL - 10.4.11-MariaDB : Database - u1657744_spk_kredit_fucom_smart
 *********************************************************************
 */
 
@@ -12,9 +12,9 @@ MySQL - 10.4.11-MariaDB : Database - spk_kredit_fucom_smart
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
-CREATE DATABASE /*!32312 IF NOT EXISTS*/`spk_kredit_fucom_smart` /*!40100 DEFAULT CHARACTER SET utf8mb4 */;
+CREATE DATABASE /*!32312 IF NOT EXISTS*/`u1657744_spk_kredit_fucom_smart` /*!40100 DEFAULT CHARACTER SET utf8mb4 */;
 
-USE `spk_kredit_fucom_smart`;
+USE `u1657744_spk_kredit_fucom_smart`;
 
 /*Table structure for table `tb_alternatif` */
 
@@ -64,18 +64,19 @@ CREATE TABLE `tb_group_kriteria` (
   `kode_kriteria` varchar(20) DEFAULT NULL,
   `nama_kriteria` varchar(100) DEFAULT NULL,
   `jenis_kriteria` varchar(100) DEFAULT NULL,
+  `bobot` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `tb_group_kriteria` */
 
-insert  into `tb_group_kriteria`(`id`,`kode_kriteria`,`nama_kriteria`,`jenis_kriteria`) values 
-(1,'C1','Jaminan','Keuntungan'),
-(2,'C2','Karakter','Keuntungan'),
-(3,'C3','Pendapatan','Keuntungan'),
-(4,'C4','Pengeluaran','Kerugian'),
-(5,'C5','Kemampuan','Keuntungan'),
-(6,'C6','Kondisi Hutang','Keuntungan');
+insert  into `tb_group_kriteria`(`id`,`kode_kriteria`,`nama_kriteria`,`jenis_kriteria`,`bobot`) values 
+(1,'C1','Jaminan','Keuntungan','0.22535'),
+(2,'C2','Karakter','Keuntungan','0.1766'),
+(3,'C3','Pendapatan','Keuntungan','0.20948'),
+(4,'C4','Pengeluaran','Kerugian','0.20948'),
+(5,'C5','Kemampuan','Keuntungan','0.15663'),
+(6,'C6','Kondisi Hutang','Keuntungan','0.13020');
 
 /*Table structure for table `tb_hasil` */
 
@@ -95,7 +96,7 @@ CREATE TABLE `tb_hasil` (
   `kesimpulan` varchar(100) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4;
+) ENGINE=MyISAM AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `tb_hasil` */
 
@@ -114,7 +115,7 @@ CREATE TABLE `tb_hasil_normalisasi` (
   `c5` float DEFAULT NULL,
   `c6` float DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=53 DEFAULT CHARSET=utf8mb4;
+) ENGINE=MyISAM AUTO_INCREMENT=57 DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `tb_hasil_normalisasi` */
 

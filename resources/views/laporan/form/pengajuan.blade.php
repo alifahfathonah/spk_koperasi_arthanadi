@@ -25,7 +25,7 @@
             <div class="form-group">
                 <label for="name" class="col-sm-3 control-label"></label>
                 <div class="col-md-9">
-                    <button type="sumbit" formtarget="_blank" class="btn btn-success btn-block" data-dismiss="modal"><i class="fa fa-print" aria-hidden="true"></i> Cetak </button>
+                    <button type="sumbit" formtarget="_blank" class="btn btn-success btn-block" data-dismiss="modal"><i class="fa fa-print" aria-hidden="true"></i> Preview </button>
                 </div>
             </div>
         </form>

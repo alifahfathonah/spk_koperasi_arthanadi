@@ -201,6 +201,32 @@ class NasabahController extends Controller
         return view('nasabah.view', $data);
     }
 
+    public function delete($id)
+    {
+        DB::beginTransaction();
+        try {
+            $this->model->update_data(['aktif' => 0], $id);
+            DB::commit();
+
+            $response = [
+                "message" => 'Data nasabah berhasil dihapus',
+                'status' => 'success',
+                'code' => 200,
+            ];
+       
+        } catch (\Exception $e) {
+            DB::rollback();
+            $response = [
+                "message" => $e->getMessage(),
+                'status' => 'error',
+                'code' => 500,
+                
+            ];
+        }
+        return Response::json($response); 
+    }
+
+
     public function datatables_collection()
     {
         $data = $this->model->get_all();

@@ -33,3 +33,26 @@
       </ul>
   </section>
 </aside>
+
+<script>
+  $('#reset_hasil').on('click',function(e) {
+  e.preventDefault();
+  if(!confirm("Data hasil perhitungan sebelumnya akan dihapus, apakah anda yakin?")) {
+    return false;
+  }
+
+  $.get("{{ url('proses-spk/reset-hasil') }}", function(response, status, xhr) {
+      if( response.status == "error"){
+          $.alert_warning(response.message);
+              return false
+          }
+          $.alert_success(response.message);
+          setTimeout(function(){
+            location.reload();   
+          }, 500);  
+      }).catch(error => {
+            $.alert_error(error);
+            return false
+      });
+});
+</script>

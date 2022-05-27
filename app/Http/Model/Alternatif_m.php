@@ -36,7 +36,8 @@ class Alternatif_m extends Model
 					'b.nama_nasabah',
 					'b.alamat_nasabah',
 					'b.telepon'
-				);
+				)
+				->where('a.aktif', 1);
 				
 		return $query->get();
     }
@@ -56,6 +57,7 @@ class Alternatif_m extends Model
 					'b.alamat_nasabah',
 					'b.telepon'
 				)
+				->where('a.aktif', 1)
 				->where("a.{$this->index_key}", $id);
 				
 		return $query->first();
@@ -71,6 +73,7 @@ class Alternatif_m extends Model
 					'b.alamat_nasabah',
 					'b.telepon'
 				)
+				->where('a.aktif', 1)
 				->where($where);
 				
 		return $query->first();

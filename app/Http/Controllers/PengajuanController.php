@@ -30,11 +30,11 @@ class PengajuanController extends Controller
    {
         $data = array(
             'nameroutes'        => $this->nameroutes,
-            'title'             => 'Data Pengajuan',
-            'breadcrumb'        => 'List Data Pengajuan',
-            'headerModalTambah' => 'TAMBAH DATA PENGAJUAN',
-            'headerModalEdit'   => 'UBAH DATA PENGAJUAN',
-            'headerModalDetail' => 'DETAIL DATA PENGAJUAN',
+            'title'             => 'Data Alternatif',
+            'breadcrumb'        => 'List Data Alternatif',
+            'headerModalTambah' => 'TAMBAH DATA ALTERNATIF',
+            'headerModalEdit'   => 'UBAH DATA ALTERNATIF',
+            'headerModalDetail' => 'DETAIL DATA ALTERNATIF',
             'urlDatatables'     => 'pengajuan/datatables',
             'idDatatables'      => 'dt_pengajuan'
         );
@@ -81,7 +81,7 @@ class PengajuanController extends Controller
                 DB::commit();
     
                 $response = [
-                    "message" => 'Data pengajuan berhasil disimpan',
+                    "message" => 'Data alternatif berhasil disimpan',
                     'status' => 'success',
                     'code' => 200,
                 ];
@@ -163,7 +163,7 @@ class PengajuanController extends Controller
                 DB::commit();
 
                 $response = [
-                    "message" => 'Data pengajuan berhasil diperbarui',
+                    "message" => 'Data alternatif berhasil diperbarui',
                     'status' => 'success',
                     'code' => 200,
                 ];
@@ -194,6 +194,31 @@ class PengajuanController extends Controller
         ];
 
         return view('pengajuan.view', $data);
+    }
+
+    public function delete($id)
+    {
+        DB::beginTransaction();
+        try {
+            $this->model->update_data(['aktif' => 0], $id);
+            DB::commit();
+
+            $response = [
+                "message" => 'Data alternatif berhasil dihapus',
+                'status' => 'success',
+                'code' => 200,
+            ];
+       
+        } catch (\Exception $e) {
+            DB::rollback();
+            $response = [
+                "message" => $e->getMessage(),
+                'status' => 'error',
+                'code' => 500,
+                
+            ];
+        }
+        return Response::json($response); 
     }
 
     public function datatables_collection()

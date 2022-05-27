@@ -27,10 +27,10 @@ class GroupKriteriaController extends Controller
    {
         $data = array(
             'nameroutes'        => $this->nameroutes,
-            'title'             => 'Data Group Kriteria',
-            'breadcrumb'        => 'List Group Data Kriteria',
-            'headerModalTambah' => 'TAMBAH DATA GROUP KRITERIA',
-            'headerModalEdit'   => 'UBAH DATA GROUP KRITERIA',
+            'title'             => 'Data Kriteria',
+            'breadcrumb'        => 'List Data Kriteria',
+            'headerModalTambah' => 'TAMBAH DATA KRITERIA',
+            'headerModalEdit'   => 'UBAH DATA KRITERIA',
             'urlDatatables'     => 'group-kriteria/datatables',
             'idDatatables'      => 'dt_group_kriteria'
         );
@@ -68,7 +68,7 @@ class GroupKriteriaController extends Controller
                 DB::commit();
     
                 $response = [
-                    "message"   => 'Data group kriteria berhasil dibuat',
+                    "message"   => 'Data kriteria berhasil dibuat',
                     'status'    => 'success',
                     'code'      => 200,
                 ];
@@ -141,7 +141,7 @@ class GroupKriteriaController extends Controller
                 DB::commit();
 
                 $response = [
-                    "message" => 'Data group kriteria berhasil diperbarui',
+                    "message" => 'Data kriteria berhasil diperbarui',
                     'status' => 'success',
                     'code' => 200,
                 ];

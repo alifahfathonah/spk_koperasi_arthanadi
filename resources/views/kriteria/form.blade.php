@@ -12,7 +12,7 @@
     </div>
   </div>
   <div class="form-group">
-      <label class="col-lg-3 control-label">Nama Kriteria *</label>
+      <label class="col-lg-3 control-label">Keterangan *</label>
       <div class="col-lg-9">
         <input type="text" class="form-control" name="f[nama_kriteria]" id="nama_kriteria" value="{{ @$item->nama_kriteria }}" placeholder="Nama Kriteria" required="">
       </div>

@@ -29,7 +29,7 @@ class Nasabah_m extends Model
 
     function get_all()
     {
-        return self::get();
+        return self::where('aktif', 1)->get();
     }
 
     function insert_data($data)
