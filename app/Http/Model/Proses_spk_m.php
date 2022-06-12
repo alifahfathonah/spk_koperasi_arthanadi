@@ -21,7 +21,7 @@ class Proses_spk_m extends Model
         ];
 	}
 
-    function get_all()
+    function get_all($params = [])
     {
 		$query = DB::table("{$this->table} as a")
 				->join('tb_alternatif as b','a.id_alternatif','=','b.id')
@@ -44,6 +44,10 @@ class Proses_spk_m extends Model
 					'f.bobot_kriteria as C6'
 				)
 				->where(['a.sudah_proses' => 0, 'a.aktif' => 1]);
+
+				if(!empty($params['date_start']) && !empty($params['date_end'])){
+					$query->whereBetween('a.tgl_pengajuan',[$params['date_start'],$params['date_end']]);
+				}
 				
 		return $query->get();
     }

@@ -311,7 +311,8 @@ class ProsesSpkController extends Controller
 
     public function datatables_collection()
     {
-        $data = $this->model->get_all();
+        $params = request()->all();
+        $data = $this->model->get_all($params);
         return Datatables::of($data)->make(true);
     }
 

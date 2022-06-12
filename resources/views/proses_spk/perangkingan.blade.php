@@ -10,6 +10,23 @@
   </ol>
 @endsection
 @section('content')  
+  <div class="box-body">
+    <div class="row">
+      <div class="col-6">
+        <label class="col-md-1 control-label">Periode Awal</label>
+        <div class="col-md-3">
+          <input type="date" class="form-control" id="date_start" name="date_start" required value="{{ date('Y-m-d') }}">
+        </div>
+      </div>
+      <div class="col-6">
+        <label class="col-md-1 control-label">Periode Akhir</label>
+        <div class="col-md-3">
+          <input type="date" class="form-control" id="date_end" name="date_end" required value="{{ date('Y-m-d') }}">
+        </div>
+      </div>
+    </div>
+  </div>
+
     <div class="box">
       <div class="box-header with-border">
         <h3 class="box-title">Hasil Perangkingan</h3>
@@ -80,7 +97,8 @@
 								url: "{{ url('proses-spk/datatables-fucom-smart') }}",
 								type: "POST",
 								data: function(params){
-
+                    params.date_start = $('#date_start').val();
+                    params.date_end = $('#date_end').val();
 									}
 								},
               columns: [
@@ -156,7 +174,7 @@
       let _datatables_perangkingan_diurutkan = {
       dt__datatables_perangkingan_diurutkan:function(){
         var _this = $("#dt_perangkingan_diurutkan");
-            _datatable = _this.DataTable({		
+            _datatable_urutan = _this.DataTable({		
               processing: true,
               serverSide: true,
               paginate: false,
@@ -169,7 +187,8 @@
 								url: "{{ url('proses-spk/datatables-fucom-smart') }}",
 								type: "POST",
 								data: function(params){
-
+                    params.date_start = $('#date_start').val();
+                    params.date_end = $('#date_end').val();
 									}
 								},
               columns: [
@@ -225,6 +244,11 @@
 $(document).ready(function() {
     _datatables_perangkingan.dt__datatables_perangkingan();
     _datatables_perangkingan_diurutkan.dt__datatables_perangkingan_diurutkan();
+    $('#date_start, #date_end').on('change', function(e){
+        e.preventDefault();
+        _datatable.ajax.reload();
+        _datatable_urutan.ajax.reload();
+    });
 });
 
 </script>
