@@ -101,6 +101,7 @@ class ProsesSpkController extends Controller
                 ];
             }
 
+            dd($data_perhitungan);
             Hasil_normalisasi_m::query()->delete();
             $this->model_hasil_normalisasi->insert_data($data_perhitungan);
             $response = [
